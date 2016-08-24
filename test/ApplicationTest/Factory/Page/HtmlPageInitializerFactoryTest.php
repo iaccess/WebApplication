@@ -28,7 +28,7 @@ namespace ApplicationTest\Factory\Page;
 
 use Application\Factory\Page\HtmlPageInitializerFactory;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Site\Page\Home\HomePageAction;
+use Site\Page\HomePageAction;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
