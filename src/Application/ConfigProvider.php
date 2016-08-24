@@ -43,15 +43,15 @@ final class ConfigProvider
             'layout'    => 'layout/dashboard',
             'map'       => [
                 //Site related settings
-                'layout/layout'             => $path . "/layout/default.phtml",
-                'partial/header'            => $path . '/layout/partial/header.phtml',
-                'partial/footer'            => $path . '/layout/partial/footer.phtml',
-                'widget/banner/footer'      => $path . '/layout/widget/banner/footer.phtml',
-                'template/navigation'       => $path . '/layout/template/navigation.phtml',
-                'template/breadcrumbs'      => $path . '/layout/template/breadcrumbs.phtml',
+                'layout/layout'                     => $path . "/layout/default.phtml",
+                'partial/header'                    => $path . '/layout/partial/header.phtml',
+                'partial/footer'                    => $path . '/layout/partial/footer.phtml',
+                'widget/banner/footer'              => $path . '/layout/widget/banner/footer.phtml',
+                'template/navigation'               => $path . '/layout/template/navigation.phtml',
+                'template/breadcrumbs'              => $path . '/layout/template/breadcrumbs.phtml',
 
                 //Dashboard related settings
-                'layout/dashboard'          => $path . '/layout/dashboard.phtml',
+                'layout/dashboard'                  => $path . '/layout/dashboard.phtml',
                 'template/navigation/sidebar'       => $path . '/layout/template/navigation/sidebar.phtml',
                 'template/navigation/header'        => $path . '/layout/template/navigation/header.phtml',
                 'template/navigation/breadcrumbs'   => $path . '/layout/template/navigation/breadcrumbs.phtml',
