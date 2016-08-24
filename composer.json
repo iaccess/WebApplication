@@ -26,7 +26,8 @@
         "ocramius/proxy-manager": "^2.0",
         "codingmatters/data-persistence-layer": "^0.1.2",
         "zendframework/zend-navigation": "^2.8",
-        "zendframework/zend-form": "^2.9"
+        "zendframework/zend-form": "^2.9",
+        "zendframework/zend-view": "^2.8"
     },
     "require-dev": {
         "zendframework/zend-component-installer": "^1.0 || ~0.3",
@@ -40,13 +41,15 @@
     "autoload": {
         "psr-4": {
             "Application\\": "src/Application/",
-            "Site\\": "src/Site/"
+            "Site\\": "src/Site/",
+            "Student\\": "src/Student/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "ApplicationTest\\": "test/ApplicationTest/",
-            "SiteTest\\": "test/SiteTest/"
+            "SiteTest\\": "test/SiteTest/",
+            "StudentTest\\": "test/StudentTest/"
         }
     },
     "scripts": {
@@ -90,7 +93,7 @@
         "cs": "phpcs --ignore=/vendor,/build src",
         "cs-fix": "phpcbf --ignore=/vendor,/build src",
         "cpd": "phpcpd --exclude=/vendor,/build --names-exclude=Module.php,ConfigProvider.php --fuzzy src",
-        "test": "phpunit --verbose",                
+        "test": "phpunit",                
         "development-disable": "zf-development-mode disable",
         "development-enable": "zf-development-mode enable",
         "development-status": "zf-development-mode status",
