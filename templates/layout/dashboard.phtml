@@ -1,0 +1,46 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php 
+            echo $this->headMeta()
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+                ->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+            
+            echo $this->headTitle($this->layout()->organization)
+                ->setSeparator(' - ')
+                ->setAutoEscape(false);
+        
+            echo $this->headLink(['rel' => 'shortcut icon', 'href' => $this->basePath('assets/site/images/icons/favicon.ico')])
+                ->prependStylesheet($this->basePath('assets/dashboard/css/skin-blue.min.css'))
+                ->prependStylesheet($this->basePath('assets/dashboard/css/AdminLTE.min.css'))
+                ->prependStylesheet($this->basePath('/assets/bootstrap/css/bootstrap.min.css'))
+                ->prependStylesheet($this->basePath('/assets/font-awesome/css/font-awesome.min.css'));
+        ?>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">        
+        <div class="wrapper">
+            <header class="main-header">
+             <?php echo $this->partial('partial/navigation/header'); ?>
+            </header>
+            <aside class="main-sidebar">
+                <?php echo $this->partial('partial/navigation/sidebar'); ?>
+            </aside>
+            <div class="content-wrapper">
+                <?php echo $this->content; ?>
+            </div>
+            <footer class="main-footer">
+                <?php echo $this->partial('partial/footer'); ?>         
+            </footer>            
+        </div>
+        <?php 
+            echo $this->inlineScript() //prepend up here
+//                ->prependFile($this->basePath('assets/dashboard/js/dashboard.js'))
+                ->prependFile($this->basePath('assets/dashboard/js/app.min.js'))
+                ->prependFile($this->basePath('assets/bootstrap/js/tab.js'))                    
+                ->prependFile($this->basePath('assets/bootstrap/js/bootstrap.min.js'))
+                ->prependFile($this->basePath('assets/jquery-ui/jquery-ui.min.js'))
+                ->prependFile($this->basePath('assets/jquery/jquery.min.js'));
+        ?>
+    </body>
+</html>

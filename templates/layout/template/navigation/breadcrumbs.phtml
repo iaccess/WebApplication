@@ -1,0 +1,45 @@
+<!-- TO DO --->
+
+<?php $container = $this->navigation()->breadcrumbs()  ?>
+<?php /* @var $container \Zend\View\Helper\Navigation\Breadcrumbs */ ?>
+<?php $navigation = $container->getContainer(); ?>
+<?php /* @var $navigation \Zend\Navigation\Navigation */ ?>
+<?php $title = ""; ?>
+
+<?php foreach($navigation->getPages() as $page): ?>
+<?php if (!$page->getActive()) : ?>
+<!--<div class="pageicon pull-left">-->
+    <!--<i class="<?php echo $page->get("icon"); ?>"></i>-->
+<!--</div>-->
+<?php endif ?>
+<?php endforeach ?>
+
+<?php $parent =  $navigation->getPages(); 
+//    print_r($parent); exit;
+?>
+
+<div class="media-body">
+    <ul class="breadcrumb">
+        <?php $active = $container->findActive($navigation) ?>
+        <?php // var_dump($this->pages); ?>
+        <?php foreach($navigation->getPages() as $page): ?>
+            <?php /* @var $page \Zend\Navigation\Page\Mvc */ ?>
+            <?php if( ! $page->isActive()): ?>
+                <?php $title = $page->getLabel(); ?>
+                <li>
+                    <a href="<?php echo $page->getHref() ?>"><?php echo $page->getLabel() ?></a> 
+                    <span class="divider"></span>
+                </li>
+            <?php else: ?>
+                <?php $title = $page->getLabel(); ?>
+                <li class="active">
+                    <?php if($container->getLinkLast()): ?><a href="<?php echo $page->getHref() ?>"><?php endif ?>
+                        <?php $title = $page->getLabel(); ?>
+                    <?php echo $page->getLabel() ?>
+                    <?php if($container->getLinkLast()): ?><a href="<?php echo $page->getHref() ?>"><?php endif ?>
+                </li>
+            <?php endif ?>
+        <?php endforeach ?>
+    </ul>
+    <h4><?php echo $title; ?></h4>
+</div>
