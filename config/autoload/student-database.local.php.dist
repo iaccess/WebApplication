@@ -1,0 +1,14 @@
+<?php
+
+return [
+    'db' => [
+        'adapters' => [
+            'student_db_adapter' => [
+                'driver'    => 'Pdo_Pgsql',
+                'database'  => '',
+                'username'  => '',
+                'password'  => ''
+            ]
+        ]
+    ]
+];

@@ -1,0 +1,30 @@
+<?php 
+    $this->headTitle('Student Admission');
+    
+//    $this->headLink()->prependStylesheet($this->basePath('assets/datatables/datatables.min.css'));
+//    $this->inlineScript()
+//        ->prependFile($this->basePath('assets/datatables/datatables.min.js'))
+//        ->prependFile($this->basePath('assets/datatables/datatables-buttons.js'));
+?>
+<section class="content-header">
+    <h1>
+      Student Admission
+      <small>Enlisting of new student</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?php echo$this->url('home'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"> Student Admission </li>
+    </ol>
+</section>
+<div class="divider"><br></div>       
+<section class="content">
+    <?php
+    $form = $this->studentForm();
+    $form->setAttribute('action', '/api/students');
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formCollection($form);
+    echo $this->form()->closeTag();
+?>
+</section>
