@@ -1,0 +1,62 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php
+            echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+       
+            echo $this->headTitle("iAccess")
+                ->setSeparator(' | ')
+                ->setAutoEscape(false);
+       
+            /**
+             * Stylesheets
+             */
+            echo $this->headLink(
+                ['rel' => 'shortcut icon', 'href' => 'assets/site/images/icons/favicon.ico']
+            )
+                ->prependStylesheet('/assets/site/css/style.css')
+                ->prependStylesheet('/assets/bootstrap/css/bootstrap.min.css')
+                ->prependStylesheet('/assets/font-awesome/css/font-awesome.min.css');
+            
+            /**
+             * ONLY use for on-load scripts
+             */
+            echo $this->headScript();
+        ?>
+    </head>
+    <body>
+        <header id="site-header">
+            <?php echo $this->partial('partial/header'); ?>
+        </header>
+        <main id="site-content">
+            <?php echo $this->content;?>
+        </main>
+        <footer id="site-footer">
+            <?php echo $this->partial('widget/banner/footer'); ?>
+            <?php echo $this->partial('partial/footer'); ?>    
+        </footer>        
+        <?php 
+            /**
+             * Scripts
+             */
+            echo $this->inlineScript()
+                //prepend up here
+                ->prependFile('/assets/bootstrap/js/bootstrap.min.js')
+                ->prependFile('/assets/jquery/jquery.min.js')
+                // >IE9 Support
+                ->prependFile(
+                    '/assets/application/js/respond.min.js',
+                    'text/javascript',
+                    ['conditional' => 'lt IE 9']
+                )
+                ->prependFile(
+                    '/assets/application/js/html5shiv.js',
+                    'text/javascript',
+                    ['conditional' => 'lt IE 9']
+                );
+        ?>
+    </body>
+</html>

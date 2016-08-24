@@ -1,0 +1,99 @@
+{
+    "name": "iaccess/web-application",    
+    "type": "project",    
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gab Amba",
+            "homepage": "http://www.gabbydgab.com/",
+            "email": "gamba@gabbydgab.com"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev",
+            "dev-develop": "1.1-dev"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "roave/security-advisories": "dev-master",
+        "codingmatters/zend-expressive-config-provider": "^1.0 || ~0.1",
+        "codingmatters/zend-expressive-zend-component": "^1.0 || ~0.1",
+        "zendframework/zend-servicemanager": "^3.0",
+        "zendframework/zend-stdlib": "^3.0",
+        "mtymek/expressive-config-manager": "^1.0 || ~0.4",
+        "ocramius/proxy-manager": "^2.0",
+        "codingmatters/data-persistence-layer": "^0.1.2",
+        "zendframework/zend-navigation": "^2.8",
+        "zendframework/zend-form": "^2.9"
+    },
+    "require-dev": {
+        "zendframework/zend-component-installer": "^1.0 || ~0.3",
+        "zfcampus/zf-development-mode": "^3.0",
+        "zendframework/zend-test": "^3.0.1",
+        "squizlabs/php_codesniffer": "^2.6.2",
+        "phpbench/phpbench": "^0.11.2",
+        "sebastian/phpcpd": "^2.0.4",
+        "filp/whoops": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "src/Application/",
+            "Site\\": "src/Site/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "test/ApplicationTest/",
+            "SiteTest\\": "test/SiteTest/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@show-me-the-bugs"
+        ],
+        "post-update-cmd": [
+            "@show-me-the-bugs"
+        ],
+        "post-create-project-cmd": [
+            "@development-enable"
+        ],
+        "show-me-the-bugs": [
+            "@cs",
+            "@cpd",
+            "@test"
+        ],
+        "install-ui-component": [
+            "@remove-assets",
+            "bower install",
+            "@copy-assets"
+        ],
+        "update-ui-component": [
+            "@remove-assets",
+            "bower update",
+            "@copy-assets"
+        ],
+        "remove-assets": [
+            "rm -rf public/assets/jquery",
+            "rm -rf public/assets/jquery-ui",
+            "rm -rf public/assets/font-awesome",
+            "rm -rf public/assets/bootstrap"
+        ],
+        "copy-assets": [
+            "cp -ar bower_components/jquery/dist public/assets/jquery",
+            "cp -ar bower_components/jquery-ui public/assets/jquery-ui",
+            "cp -ar bower_components/components-font-awesome public/assets/font-awesome",
+            "cp -ar bower_components/components-bootstrap public/assets/bootstrap",
+            "rm -rf bower_components"
+        ],
+        "cs": "phpcs --ignore=/vendor,/build src",
+        "cs-fix": "phpcbf --ignore=/vendor,/build src",
+        "cpd": "phpcpd --exclude=/vendor,/build --names-exclude=Module.php,ConfigProvider.php --fuzzy src",
+        "test": "phpunit --verbose",                
+        "development-disable": "zf-development-mode disable",
+        "development-enable": "zf-development-mode enable",
+        "development-status": "zf-development-mode status",
+        "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php"        
+    }
+}

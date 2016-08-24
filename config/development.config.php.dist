@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Local Configuration Override for DEVELOPMENT MODE.
+ *
+ * This configuration override file is for providing configuration to use while
+ * in development mode. Run:
+ *
+ * <code>
+ * $ composer development-enable
+ * </code>
+ *
+ * from the project root to copy this file to development.local.php and enable
+ * the settings it contains.
+ *
+ * You may also create files matching the glob pattern `{,*.}{global,local}-development.php`.
+ */
+
+use Zend\Expressive\Container;
+
+return [
+    'debug' => true,
+    'config_cache_enabled' => false,
+    'view_manager' => [
+        'display_exceptions' => true,
+    ],
+    // Whoops error template handler
+    'dependencies' => [
+        'invokables'    => [
+            'Zend\Expressive\Whoops'            => Whoops\Run::class,
+            'Zend\Expressive\WhoopsPageHandler' => Whoops\Handler\PrettyPageHandler::class,
+        ],
+        'factories'     => [
+            'Zend\Expressive\FinalHandler' => Container\WhoopsErrorHandlerFactory::class
+        ]
+    ],
+    'whoops' => [
+        'json_exceptions' => [
+            'display'    => true,
+            'show_trace' => true,
+            'ajax_only'  => true,
+        ]
+    ]
+];

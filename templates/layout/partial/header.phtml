@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="container" role="banner">
+            <div class="brand">
+                <h2 style="text-align: center; margin-bottom: -15px;">
+                    <small style=" color: #E3E4E5; text-transform: capitalize; font-weight: bolder">
+                        <span style="color:#FF3333">A</span>dvance <span style="color:#FF3333">C</span>ompetitive <span style="color:#FF3333">C</span>areer <span style="color:#FF3333">E</span>ducational <span style="color:#FF3333">S</span>kills <span style="color:#FF3333">S</span>ystem
+                    </small>
+                </h2>
+                <img src="/assets/site/images/iaccess-icon.png" class="img-responsive center-block" width="130px">
+                <h1 style="color:#9D2E2C; font-size: 40px; font-weight: bolder; text-align: center; text-transform: uppercase">
+                <?php echo "iAccess";?>
+                </h1>
+                <h3 style="text-align: center; margin-top: -15px;">                   
+                    <small style=" color: #fff; text-transform: uppercase;">Your Access in Building Your Success</small>
+                </h3>
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container-fluid">
+            <div id="header-navigation">                
+                <?php
+                    echo $this->navigation('navigation')->menu()
+                        ->setUlClass('nav navbar-nav')
+                        ->setPartial('template/navigation');
+                ?>                
+            </div>
+        </div>
+    </div>
+</div>
