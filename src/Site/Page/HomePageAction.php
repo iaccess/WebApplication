@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Site\Page\Home;
+namespace Site\Page;
 
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;

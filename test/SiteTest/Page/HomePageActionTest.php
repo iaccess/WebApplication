@@ -24,15 +24,14 @@
  * THE SOFTWARE.
  */
 
-namespace SiteTest\Page\Home;
+namespace SiteTest\Page;
 
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Site\Page\Home\HomePageAction;
 use Zend\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
+use Site\Page\HomePageAction;
 use Zend\Diactoros\Response;
-
 
 final class HomePageActionTest extends TestCase
 {
