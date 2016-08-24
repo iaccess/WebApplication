@@ -43,7 +43,7 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                Page\Home\HomePageAction::class => AppFactory\Page\HtmlPageInitializerFactory::class
+                Page\HomePageAction::class => AppFactory\Page\HtmlPageInitializerFactory::class
             ]
         ];
     }
@@ -55,7 +55,7 @@ final class ConfigProvider
                 "name"  => "home",
                 "path"  => "/",
                 "allowed_method" => ['GET'],
-                "middleware"    => Page\Home\HomePageAction::class
+                "middleware"    => Page\HomePageAction::class
             ]
         ];
     }
