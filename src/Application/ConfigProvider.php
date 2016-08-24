@@ -40,7 +40,8 @@ final class ConfigProvider
         $path = __DIR__ . '/../../templates';
 
         return [
-            'map'   => [
+            'layout'    => 'layout/dashboard',
+            'map'       => [
                 //Site related settings
                 'layout/layout'             => $path . "/layout/default.phtml",
                 'partial/header'            => $path . '/layout/partial/header.phtml',
@@ -60,7 +61,7 @@ final class ConfigProvider
                 'partial/footer'                    => $path . '/layout/partial/footer.phtml',
                 'boxcar/small'                      => $path . '/layout/widget/boxcar/small.phtml'
             ],
-            'paths' => [
+            'paths'     => [
                 'error'     => [$path . '/error'],
                 'layout'    => [$path . '/layout']
             ]
