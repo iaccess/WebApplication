@@ -7,15 +7,15 @@
                 ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
                 ->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
             
-            echo $this->headTitle($this->layout()->organization)
+            echo $this->headTitle("iAccess")
                 ->setSeparator(' - ')
                 ->setAutoEscape(false);
         
-            echo $this->headLink(['rel' => 'shortcut icon', 'href' => $this->basePath('assets/site/images/icons/favicon.ico')])
-                ->prependStylesheet($this->basePath('assets/dashboard/css/skin-blue.min.css'))
-                ->prependStylesheet($this->basePath('assets/dashboard/css/AdminLTE.min.css'))
-                ->prependStylesheet($this->basePath('/assets/bootstrap/css/bootstrap.min.css'))
-                ->prependStylesheet($this->basePath('/assets/font-awesome/css/font-awesome.min.css'));
+            echo $this->headLink(['rel' => 'shortcut icon', 'href' => '/assets/site/images/icons/favicon.ico'])
+                ->prependStylesheet('/assets/dashboard/css/skin-blue.min.css')
+                ->prependStylesheet('/assets/dashboard/css/AdminLTE.min.css')
+                ->prependStylesheet('/assets/bootstrap/css/bootstrap.min.css')
+                ->prependStylesheet('/assets/font-awesome/css/font-awesome.min.css');
         ?>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">        
@@ -35,12 +35,12 @@
         </div>
         <?php 
             echo $this->inlineScript() //prepend up here
-//                ->prependFile($this->basePath('assets/dashboard/js/dashboard.js'))
-                ->prependFile($this->basePath('assets/dashboard/js/app.min.js'))
-                ->prependFile($this->basePath('assets/bootstrap/js/tab.js'))                    
-                ->prependFile($this->basePath('assets/bootstrap/js/bootstrap.min.js'))
-                ->prependFile($this->basePath('assets/jquery-ui/jquery-ui.min.js'))
-                ->prependFile($this->basePath('assets/jquery/jquery.min.js'));
+                //->prependFile('/assets/dashboard/js/dashboard.js') // requires ChartJs package
+                ->prependFile('/assets/dashboard/js/app.min.js')
+                ->prependFile('/assets/bootstrap/js/tab.js') 
+                ->prependFile('/assets/bootstrap/js/bootstrap.min.js')
+                ->prependFile('/assets/jquery-ui/jquery-ui.min.js')
+                ->prependFile('/assets/jquery/jquery.min.js');
         ?>
     </body>
 </html>
