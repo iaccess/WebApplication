@@ -61,7 +61,7 @@ final class ConfigProviderTest extends TestCase
                     "name"  => "home",
                     "path"  => "/",
                     "allowed_method" => ['GET'],
-                    "middleware"    => Site\Page\Home\HomePageAction::class
+                    "middleware"    => Site\Page\HomePageAction::class
                 ]
             ]
         );
