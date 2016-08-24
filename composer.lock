@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a6bfd96bd275067a29c69c550a5f0ee1",
-    "content-hash": "8ad2d7c7c1cb0525a530d0f6ce6c5864",
+    "hash": "a89199355e18dde33afcfeba8d5d992f",
+    "content-hash": "fafb94df7c5f0d672bfd4d15af1fb2d3",
     "packages": [
         {
             "name": "codingmatters/data-persistence-layer",
