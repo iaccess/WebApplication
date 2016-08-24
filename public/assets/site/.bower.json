@@ -1,0 +1,25 @@
+{
+  "name": "codingmatters-site-ui-dependencies",
+  "homepage": "https://github.com/SiteComponents/site-ui-dependencies",
+  "authors": [
+    "gabbydgab <gamba@gabbydgab.com>"
+  ],
+  "description": "3rd party dependencies",
+  "license": "Creative Commons 1.0",
+  "dependencies": {
+    "jquery": "^2.2",
+    "jquery-ui": "^1.11",
+    "components-font-awesome": "^4.6",
+    "components-bootstrap": "^3.3"
+  },
+  "version": "0.1.0",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "c080e20c6f0f64a8a42e0c58e3ea1adc365c5b3e"
+  },
+  "_source": "https://github.com/SiteComponents/site-ui-dependencies.git",
+  "_target": "^1.0 || ~0.1",
+  "_originalSource": "codingmatters-site-ui-dependencies"
+}

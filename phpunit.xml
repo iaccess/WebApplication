@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
+    <logging>
+        <log type="coverage-html"  target="public/build/coverage" title="iAccessWebApp"
+        charset="UTF-8" yui="true" highlight="true"
+        lowUpperBound="35" highLowerBound="true" />
+        <log type="coverage-clover" target="public/build/logs/clover.xml" />
+        <log type="junit" target="public/build/logs/junit.xml" logIncompleteSkipped="false"/>
+        <log type="testdox-html" target="public/build/phpdox/index.html"/>
+        <log type="testdox-txt" target="public/build/phpdox/testdox.txt"/>
+    </logging>
+    <testsuite name="regression">
+        <directory>./test/</directory>
+    </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
