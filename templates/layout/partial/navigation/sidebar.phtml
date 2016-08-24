@@ -2,105 +2,70 @@
     <!-- Use Navigation Here -->
     <ul class="sidebar-menu">
         <!-- DIVIDER -->
-        <li class="header">GENERAL OVERVIEW</li>
+        <li class="header">INSTITUTE SERVICES</li>
         <!-- END DIVIDER -->
-        <li><a href="<?php echo $this->url('home'); ?>">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+        <li class="active"><a href="<?php echo $this->url('home'); ?>">
+            <i class="fa fa-feed"></i> <span>General Announcements</span></a>
         </li>
-<!--        <li><a href="#">
-            <i class="fa fa-list"></i> <span>School Program</span></a>
-        </li>
-        <li><a href="#">
-              <i class="fa fa-bar-chart-o"></i> <span>General Report</span></a>
-        </li>-->
-        
-         <!-- DIVIDER -->
-        <li class="header">SERVICES</li>
-        <!-- END DIVIDER -->        
-<!--        <li class="active"><a href="#">
-            <i class="fa fa-university"></i> <span>Admission</span></a>
-        </li>-->
-        <li class="active"><a href="#">
-            <i class="fa fa-university"></i> <span>Tesda Enrollment</span></a>
-        </li>
-<!--        <li class="treeview">
-            <a href="#">
-              <i class="fa fa-laptop"></i>
-              <span>INTEGRATIONS</span>
-              <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-gears"></i> TESDA </a></li>
-            </ul>
-        </li>   -->
         
         <!-- DIVIDER -->
-        <li class="header">OFFICE OF THE REGISTRAR</li>
-         <!--END DIVIDER--> 
-        <li class="active"><a href="<?=$this->url('home');?>">
-            <i class="fa fa-group"></i> <span>Student</span></a>
-        </li>
-        <li class="active"><a href="#">
-            <i class="fa fa-list-alt"></i> <span>Prospectus</span></a>
-        </li>
-<!--        <li class="active"><a href="#">
-            <i class="fa fa-user"></i> <span>Faculty</span></a>
-        </li>
-        
-        <li class="active"><a href="#">
-            <i class="fa fa-building-o"></i> <span>Facilities</span></a>
+        <li class="header">STUDENT SERVICES</li>
+        <!-- END DIVIDER -->
+        <li><a href="<?php echo $this->url('student-admission');?>">
+            <i class="fa fa-user-plus"></i> <span>Student Admission</span></a>
         </li>
         <li class="treeview">
             <a href="#">
-              <i class="fa fa-book"></i>
-              <span>DOCUMENTS</span>
+              <i class="fa fa-institution"></i>
+              <span>Enroll Student</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-graduation-cap"></i> Transcript of Record </a></li>
-              <li><a href="#"><i class="fa fa-file-text-o"></i> Grading Sheet </a></li>
-              <li><a href="#"><i class="fa fa-calendar"></i> Calendar </a></li>
-              <li><a href="#"><i class="fa fa-paperclip"></i> Memo </a></li>
+              <li><a href="#"><i class="fa fa-gear"></i> TESDA TVET Program </a></li>
+              <li><a href="#"><i class="fa fa-graduation-cap"></i> Degree Courses </a></li>
+              <li><a href="#"><i class="fa fa-certificate"></i> Senior High School </a></li>              
+              <li><a href="#"><i class="fa fa-cubes"></i> K TO 12 </a></li>              
             </ul>
-        </li>     -->
-
-        <!-- DIVIDER -->
-        <li class="header">TESDA PROGRAMS</li>
-        <li class="active"><a href="#">
-            <i class="fa fa-gears"></i> <span>Training Regulations</span></a>
-        </li>
-        <li class="active"><a href="#">
-            <i class="fa fa-graduation-cap"></i> <span>TVET Competencies</span></a>
         </li>
         
+        <!-- DIVIDER -->
+        <li class="header">CLASS MANAGEMENT</li>
+        <!-- END DIVIDER -->
+        <li><a href="#">
+            <i class="fa fa-list-alt"></i> <span>Course Offering</span></a>
+        </li>
+        <li><a href="#">
+            <i class="fa fa-calendar"></i> <span>Class Schedules</span></a>
+        </li>
         
         <!-- DIVIDER -->
-<!--        <li class="header">STUDENT</li>
-         END DIVIDER 
-        <li class="active"><a href="#">
-            <i class="fa fa-bullhorn"></i> <span>Announcement</span></a>
-        </li> 
-        <li class="active"><a href="#">
-            <i class="fa fa-edit"></i> <span>Profile</span></a>
+        <li class="header">BILLING MANAGEMENT</li>
+        <!-- END DIVIDER -->        
+        <li class="treeview">
+            <a href="#">
+              <i class="fa fa-credit-card-alt"></i>
+              <span>Tuition Fees</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#"><i class="fa fa-gear"></i> TESDA TVET Program </a></li>
+              <li><a href="#"><i class="fa fa-graduation-cap"></i> Degree Courses </a></li>
+              <li><a href="#"><i class="fa fa-certificate"></i> Senior High School </a></li>              
+              <li><a href="#"><i class="fa fa-cubes"></i> K TO 12 </a></li>              
+            </ul>
         </li>
-        <li class="active"><a href="#">
-            <i class="fa fa-folder-open"></i> <span>School Record</span></a>
+        <li class="treeview">
+            <a href="#">
+              <i class="fa fa-plus-circle"></i>
+              <span>Miscellaneous Fees</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#"><i class="fa fa-gear"></i> TESDA TVET Program </a></li>
+              <li><a href="#"><i class="fa fa-graduation-cap"></i> Degree Courses </a></li>
+              <li><a href="#"><i class="fa fa-certificate"></i> Senior High School </a></li>              
+              <li><a href="#"><i class="fa fa-cubes"></i> K TO 12 </a></li>              
+            </ul>
         </li>
-        <li class="active"><a href="#">
-            <i class="fa fa-warning"></i> <span>Clearance Item</span></a>
-        </li>-->
-        
-        <!-- DIVIDER -->
-<!--        <li class="header">FACULTY</li>
-         END DIVIDER 
-        <li class="active"><a href="#">
-            <i class="fa fa-bullhorn"></i> <span>Announcement</span></a>
-        </li> 
-        <li class="active"><a href="#">
-            <i class="fa fa-edit"></i> <span>Profile</span></a>
-        </li>
-        <li class="active"><a href="#">
-            <i class="fa fa-folder-open"></i> <span>School Record</span></a>
-        </li>  -->
     </ul>
 </section>
