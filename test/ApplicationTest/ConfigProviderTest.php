@@ -31,13 +31,24 @@ use Application\ConfigProvider;
 
 final class ConfigProviderTest extends TestCase
 {
-    public function testViewConfig()
+    private $configProvider;
+
+    public function setUp()
     {
-        $provider = new ConfigProvider();
-        
-        $this->assertArrayHasKey('paths', $provider->getViewConfig());
-        $this->assertArrayHasKey('map', $provider->getViewConfig());
-        
-        $this->assertArrayHasKey('templates', $provider->__invoke());
+        $this->configProvider = new ConfigProvider();
+    }
+
+    public function testApplicationConfigProviderKeySettings()
+    {
+        $config = $this->configProvider->__invoke();
+        $this->assertArrayHasKey('templates', $config);        
+    }
+
+    public function testViewConfigKeySettings()
+    {
+        $config = $this->configProvider->getViewConfig();
+        $this->assertArrayHasKey('layout', $config);
+        $this->assertArrayHasKey('map', $config);
+        $this->assertArrayHasKey('paths', $config);
     }
 }

@@ -27,22 +27,43 @@
 namespace SiteTest;
 
 use PHPUnit\Framework\TestCase;
-use Site\ConfigProvider;
+use Site;
 
 final class ConfigProviderTest extends TestCase
 {
-    public function testViewConfig()
+    private $configProvider;
+
+    public function setUp()
     {
-        $provider = new ConfigProvider();
-        
-        $this->assertArrayHasKey('paths', $provider->getViewConfig());
-        $this->assertArrayHasKey('templates', $provider->__invoke());
+        $this->configProvider = new Site\ConfigProvider();
     }
-    
-    public function testRouteConfig()
+
+    public function testApplicationConfigProviderKeySettings()
     {
-        $provider = new ConfigProvider();
-//        $this->assertArraySubset('name', $provider->getRouteConfig());
-        $this->assertArrayHasKey('routes', $provider->__invoke());
+        $config = $this->configProvider->__invoke();
+        $this->assertArrayHasKey('templates', $config);
+        $this->assertArrayHasKey('routes', $config);
+    }
+
+    public function testViewConfigKeySettings()
+    {
+        $config = $this->configProvider->getViewConfig();
+        $this->assertArrayHasKey('paths', $config);
+    }
+
+    public function testRouteConfigKeySettings()
+    {       
+        $this->assertArraySubset(
+            $this->configProvider->getRouteConfig(),
+            //Array of expected data
+            [
+                [
+                    "name"  => "home",
+                    "path"  => "/",
+                    "allowed_method" => ['GET'],
+                    "middleware"    => Site\Page\Home\HomePageAction::class
+                ]
+            ]
+        );
     }
 }
