@@ -26,12 +26,210 @@
 
 namespace Application;
 
+use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
+
 final class ConfigProvider
 {
     public function __invoke()
     {
         return [
-            'templates' => $this->getViewConfig()
+            'dependencies'          => $this->getServiceConfig(),
+            'routes'                => $this->getRouteConfig(),
+            'templates'             => $this->getViewConfig(),
+            'middleware_pipeline'   => $this->getMiddlewareConfig()
+        ];
+    }
+
+    public function getServiceConfig()
+    {
+        return [
+            'invokables'    => [
+                Middleware\AuthenticationMiddleware::class => Middleware\AuthenticationMiddleware::class,
+            ],
+            'factories'     => [
+                Page\Admission::class        =>  Factory\PageFactory::class,
+                Page\Attendance::class       =>  Factory\PageFactory::class,
+                Page\Billing::class          =>  Factory\PageFactory::class,
+                Page\ClassSchedule::class    =>  Factory\PageFactory::class,
+                Page\CourseOffering::class   =>  Factory\PageFactory::class,
+                Page\Enrollment::class       =>  Factory\PageFactory::class,
+                Page\Grade::class            =>  Factory\PageFactory::class,
+                Page\Home::class             =>  Factory\PageFactory::class,
+                Page\Exam::class             =>  Factory\PageFactory::class,
+                Page\Passbook::class         =>  Factory\PageFactory::class,
+                Page\Student::class          =>  Factory\PageFactory::class,
+                Page\Transcript::class       =>  Factory\PageFactory::class,
+                Page\Tesda::class            =>  Factory\PageFactory::class,
+
+                Service\EnrollmentService::class    => Factory\EnrollmentServiceFactory::class
+            ]
+        ];
+    }
+
+    public function getRouteConfig()
+    {
+        return [
+            [
+                "name"              => "home",
+                "path"              => "/",
+                "allowed_methods"   => ['GET'],
+                "middleware"        => Page\Home::class,
+            ],
+
+            // Staff Account links
+            [
+                "name"              => "student-admission",
+                "path"              => "/admission",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Admission::class
+            ],
+            [
+                "name"              => "enrollment",
+                "path"              => "/enrollment",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Enrollment::class
+            ],
+
+            // Registrar
+            [
+                "name"              => "student-record",
+                "path"              => "/students",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Student::class,
+            ],
+            [
+                "name"              => "course-offering",
+                "path"              => "/courses/offering",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\CourseOffering::class
+            ],
+            [
+                "name"              => "class-scheduling",
+                "path"              => "/classes",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\CourseOffering::class
+            ],
+            [
+                "name"              => "transcript",
+                "path"              => "/transcripts",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Transcript::class,
+            ],
+            [
+                "name"              => "tesda-report",
+                "path"              => "/tesda-report",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Tesda::class,
+            ],
+//
+//            [
+//                "name"              => "students",
+//                "path"              => "/students",
+//                "allowed_methods"   => ['GET'],
+//                'middleware'        => Students::class
+//            ],
+//            [
+//                "name"              => "students-grades",
+//                "path"              => "/students/grades",
+//                "allowed_methods"   => ['GET'],
+//                'middleware'        => Students\Grades::class
+//            ],
+
+            // Accounting
+            [
+                "name"              => "student-billing-account",
+                "path"              => "/students/payment-transactions",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Billing::class
+            ],
+            [
+                "name"              => "enrollment-billing",
+                "path"              => "/enrollment/billing",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Billing::class
+            ],
+
+            // student account links
+            'student-profile' => [
+                "name"              => "student-profile",
+                "path"              => "/account",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Home::class
+            ],
+            [
+                "name"              => "student-enrollment",
+                "path"              => "/enroll",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Enrollment::class
+            ],
+            [
+                "name"              => "student-classes",
+                "path"              => "/schedules",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\ClassSchedule::class
+            ],
+            [
+                "name"              => "student-grades",
+                "path"              => "/grades",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Grade::class
+            ],
+            [
+                "name"              => "student-passbook",
+                "path"              => "/passbook",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Passbook::class
+            ],
+
+            // employee account links
+            'employee-profile' => [
+                "name"              => "employee-profile",
+                "path"              => "/profile",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Profile::class
+            ],
+
+            // Faculty Account links
+            [
+                "name"              => "teaching-load",
+                "path"              => "/class/schedules",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\ClassSchedule::class
+            ],
+            [
+                "name"              => "class-exams",
+                "path"              => "/class/exams",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Exam::class
+            ],
+            [
+                "name"              => "class-attendance",
+                "path"              => "/class/attendance",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\Attendance::class
+            ],
+
+
+            [
+                "name"              => "enrollment.api",
+                "path"              => "/api/enrollment",
+                "allowed_methods"   => ['POST'],
+                'middleware'        => Service\EnrollmentService::class
+            ],
+        ];
+    }
+
+    public function getMiddlewareConfig()
+    {
+        return [
+            'api'   => [
+                'path'          => '/api',
+                'priority'      => 1000,
+                'middleware'    => [
+                    Middleware\AuthenticationMiddleware::class,
+                    BodyParamsMiddleware::class
+                ]
+            ]
         ];
     }
 
@@ -63,7 +261,9 @@ final class ConfigProvider
             ],
             'paths'     => [
                 'error'     => [$path . '/error'],
-                'layout'    => [$path . '/layout']
+                'layout'    => [$path . '/layout'],
+                'dashboard' => [$path . '/dashboard'],
+                'student'   => [$path . '/student'],
             ]
         ];
     }

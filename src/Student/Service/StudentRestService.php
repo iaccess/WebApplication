@@ -74,7 +74,7 @@ final class StudentRestService extends AbstractRestService
      */
     public function create(Request $request, Response $response, callable $out = null)
     {
-        $data = $request->getParsedBody()['student'];
+        $data = $request->getParsedBody();
 
         try {
             $hydrator   = $this->mapper->getResultSet()->getHydrator();
@@ -96,7 +96,7 @@ final class StudentRestService extends AbstractRestService
 
         $this->createResponse($this->formatMessage($code, $status, $message), $code);
 
-        return new RedirectResponse('/student/admission');
+        return new RedirectResponse('/enrollment');
     }
 
     /**

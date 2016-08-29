@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'db' => [
+        'adapters' => [
+            'iaccess_db_adapter' => [
+                'driver'    => 'Pdo_Pgsql',
+                'database'  => '',
+                'username'  => '',
+                'password'  => ''
+            ],
+            'student_db_adapter' => [
+                'driver'    => 'Pdo_Pgsql',
+                'database'  => '',
+                'username'  => '',
+                'password'  => ''
+            ],
+            'enrollment_db_adapter' => [
+                'driver'    => 'Pdo_Pgsql',
+                'database'  => '',
+                'username'  => '',
+                'password'  => ''
+            ],
+            'tesda_db_adapter' => [
+                'driver'    => 'Pdo_Pgsql',
+                'database'  => '',
+                'username'  => '',
+                'password'  => ''
+            ],
+       ]
+    ]
+];

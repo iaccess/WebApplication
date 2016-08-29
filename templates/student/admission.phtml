@@ -18,13 +18,33 @@
 </section>
 <div class="divider"><br></div>       
 <section class="content">
-    <?php
+<?php
     $form = $this->studentForm();
-    $form->setAttribute('action', '/api/students');
+    $fname = $form->get('first_name');
+    $mname = $form->get('middle_name');
+    $lname = $form->get('last_name');
     $form->prepare();
-
-    echo $this->form()->openTag($form);
-    echo $this->formCollection($form);
-    echo $this->form()->closeTag();
-?>
+    echo $this->form()->openTag($form); 
+?> 
+    <fieldset>
+        <div class="form-group">
+            <?php echo $this->formLabel($fname) ?>
+            <?php echo $this->formElement($fname) ?>
+            <?php echo $this->formElementErrors()->render($fname, ['class' => 'help-block']) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formLabel($mname) ?>
+            <?php echo $this->formElement($mname) ?>
+            <?php echo $this->formElementErrors()->render($mname, ['class' => 'help-block']) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formLabel($lname) ?>
+            <?php echo $this->formElement($lname) ?>
+            <?php echo $this->formElementErrors()->render($lname, ['class' => 'help-block']) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formElement($form->get('submit')); ?>
+        </div>    
+    </fieldset>
+<?php echo $this->form()->closeTag(); ?>
 </section>

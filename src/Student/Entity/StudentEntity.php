@@ -27,31 +27,67 @@
 namespace Student\Entity;
 
 use Application\Entity\EntityPrototype;
+use Zend\Form\Annotation;
 
+/**
+ * @Annotation\Name("student")
+ * @Annotation\Hydrator("Zend\Hydrator\Reflection")
+ */
 final class StudentEntity implements EntityPrototype
 {
+    /**
+     * @Annotation\Exclude()
+     */
     private $guid;
+
+    /**
+     * @Annotation\Exclude()
+     */
     private $student_id;
+
+    /**
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":25}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zA-Z0-9_-]{0,24}$/"}})
+     * @Annotation\Attributes({"type":"text","class":"form-control", "placeholder":"First Name"})
+     * @Annotation\Options({"label":"First Name:"})
+     */
     private $first_name;
+
+    /**
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":25}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zA-Z0-9_-]{0,24}$/"}})
+     * @Annotation\Attributes({"type":"text","class":"form-control", "placeholder":"Middle Name"})
+     * @Annotation\Options({"label":"Middle Name:"})
+     */
     private $middle_name;
+
+    /**
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":25}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z][a-zA-Z0-9_-]{0,24}$/"}})
+     * @Annotation\Attributes({"type":"text","class":"form-control", "placeholder":"Last Name"})
+     * @Annotation\Options({"label":"Last Name:"})
+     */
     private $last_name;
 
-    public function getStudentId()
+    public function studentId()
     {
         return $this->student_id;
     }
 
-    public function getFirstName()
+    public function firstName()
     {
         return $this->first_name;
     }
 
-    public function getMiddleName()
+    public function middleName()
     {
         return $this->middle_name;
     }
 
-    public function getLastName()
+    public function lastName()
     {
         return $this->last_name;
     }
@@ -64,19 +100,19 @@ final class StudentEntity implements EntityPrototype
     public function toArray()
     {
         return [
-            'first_name'    => $this->getFirstName(),
-            'middle_name'   => $this->getMiddleName(),
-            'last_name'     => $this->getLastName(),
+            'first_name'    => $this->firstName(),
+            'middle_name'   => $this->middleName(),
+            'last_name'     => $this->lastName(),
         ];
     }
 
     public function getInfo()
     {
         return [
-            'student_id'    => $this->getStudentId(),
-            'first_name'    => $this->getFirstName(),
-            'middle_name'   => $this->getMiddleName(),
-            'last_name'     => $this->getLastName(),
+            'student_id'    => $this->studentId(),
+            'first_name'    => $this->firstName(),
+            'middle_name'   => $this->middleName(),
+            'last_name'     => $this->lastName(),
         ];
     }
 }

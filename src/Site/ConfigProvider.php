@@ -51,7 +51,7 @@ final class ConfigProvider
     public function getRouteConfig()
     {
         return [
-            [
+            'home' => [
                 "name"  => "home",
                 "path"  => "/",
                 "allowed_method" => ['GET'],

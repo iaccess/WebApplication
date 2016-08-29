@@ -44,7 +44,7 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                Page\AdmissionPageAction::class     => AppFactory\Page\HtmlPageInitializerFactory::class,
+                Page\AdmissionPageAction::class     => AppFactory\PageFactory::class,
                 Service\StudentRestService::class   => Factory\Service\StudentRestServiceFactory::class
             ]
         ];
@@ -53,7 +53,7 @@ final class ConfigProvider
     public function getRouteConfig()
     {
         return [
-            [
+            'student-admission' => [
                 "name"              => "student-admission",
                 "allowed_methods"   => ['GET'],
                 "path"              => "/student/admission",
@@ -76,7 +76,7 @@ final class ConfigProvider
     {
         return [
             "paths"  => [
-                'student'   => [__DIR__ . "/../../templates/student"]
+                //'student'   => [__DIR__ . "/../../templates/student"]
             ]
         ];
     }
@@ -84,8 +84,11 @@ final class ConfigProvider
     public function getViewHelperConfig()
     {
         return [
-            'factories' => [
-                'studentForm'   => Factory\ViewHelper\Form\StudentFormViewHelperFactory::class
+            'invokables'    => [
+                'studentForm'   => Form\Form137::class,
+            ],
+            'factories'     => [
+                'students'  => Factory\StudentRepositoryFactory::class,
             ]
         ];
     }

@@ -1,0 +1,38 @@
+<?php $this->headTitle('Course Offering');?>
+
+<section class="content-header">
+    <h1>
+      Course Offering
+      <small>Training Programs with corresponding fee</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li class="active"><a href="<?php $this->url('home'); ?>"><i class="fa fa-dashboard"></i> Dashboard </a></li>
+    </ol>
+</section>
+<div class="divider"><br></div>       
+<section class="content">   
+    <div class="row">
+        <div class="col-md-8 table-responsive">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>No. of Hours</th>                        
+                        <th>Program Description</th>
+                        <th>Training Fee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->tuitionFees() as $fee) : ?>
+                <?php $program = $this->tvetPrograms($fee->getProgramCode());?>
+                    <tr>
+                        <td><?php echo $program->getHours();?></td>
+                        <td><?php echo $program->getTitle();?></td>
+                        <td>&#8369 &nbsp;&nbsp;<?php echo $fee->getFee();?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</section>   

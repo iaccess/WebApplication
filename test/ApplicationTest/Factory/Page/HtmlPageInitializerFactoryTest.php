@@ -26,13 +26,13 @@
 
 namespace ApplicationTest\Factory\Page;
 
-use Application\Factory\Page\HtmlPageInitializerFactory;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Site\Page\HomePageAction;
 use Interop\Container\ContainerInterface;
+use Application\Factory\PageFactory;
 use PHPUnit\Framework\TestCase;
+use Application\Page\Home;
 
-final class HtmlPageInitializerFactoryTest extends TestCase
+final class PageFactoryTest extends TestCase
 {
     /** @var ContainerInterface */
     protected $container;
@@ -44,28 +44,28 @@ final class HtmlPageInitializerFactoryTest extends TestCase
     
     public function testHtmlPageInitializerTemplateFactory()
     {
-        $factory = new HtmlPageInitializerFactory();
-        $this->assertTrue($factory instanceof HtmlPageInitializerFactory);
+        $factory = new PageFactory();
+        $this->assertTrue($factory instanceof PageFactory);
         
         $this->container->has(TemplateRendererInterface::class)->willReturn(true);                                                             
         $this->container
             ->get(TemplateRendererInterface::class)
             ->willReturn($this->prophesize(TemplateRendererInterface::class));
         
-        $homePage = $factory($this->container->reveal(), HomePageAction::class);
+        $homePage = $factory($this->container->reveal(), Home::class);
         
-        $this->assertTrue($homePage instanceof HomePageAction);
+        $this->assertTrue($homePage instanceof Home);
     }
     
     public function testFactoryWithoutTemplate()
     {
-        $factory = new HtmlPageInitializerFactory();
-        $this->assertTrue($factory instanceof HtmlPageInitializerFactory);
+        $factory = new PageFactory();
+        $this->assertTrue($factory instanceof PageFactory);
         
         $this->container->has(TemplateRendererInterface::class)->willReturn(false); 
         
-        $homePage = $factory($this->container->reveal(), HomePageAction::class);
+        $homePage = $factory($this->container->reveal(), Home::class);
         
-        $this->assertFalse($homePage instanceof HomePageAction);
+        $this->assertFalse($homePage instanceof Home);
     }
 }
