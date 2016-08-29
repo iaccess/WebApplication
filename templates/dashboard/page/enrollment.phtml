@@ -19,19 +19,26 @@
 </section>
 <div class="divider"><br></div>
 <section class="content">    
-    <form method="POST" action="<?php echo $this->url('enrollment.api');?>">
-        <div class="form-group">
-                <label for="student_id">Student ID</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Student ID">
+    <div class="row">
+        <div class="col-md-8">
+            <form method="POST" action="<?php echo $this->url('enrollment.api');?>">
+                <div class="form-group">
+                        <label for="student_id">Student ID</label>
+                        <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Student ID">
 
-                <label for="training_regulation_code">TVET Program</label>
-                <!--<input type="text" class="form-control" id="training_regulation_id"  name="training_regulation_id" placeholder="TVER Program">-->
-                <select name="training_regulation_code">
-                    <?php foreach($this->tvetPrograms() as $program) : ?>
-                    <option value="<?php echo $program->getId();?>"><?php echo $program->getTitle();?></option>
-                    <?php endforeach; ?>
-                </select>
+                        <label for="training_regulation_code">TVET Program</label>
+                        <!--<input type="text" class="form-control" id="training_regulation_id"  name="training_regulation_id" placeholder="TVER Program">-->
+                        <select name="training_regulation_code" id="training_regulation_id">
+                            <?php foreach($this->tvetPrograms() as $program) : ?>
+                            <option value="<?php echo $program->getId();?>"><?php echo $program->getTitle();?></option>
+                            <?php endforeach; ?>
+                        </select>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
 </section>

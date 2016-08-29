@@ -47,19 +47,20 @@ final class ConfigProvider
                 Middleware\AuthenticationMiddleware::class => Middleware\AuthenticationMiddleware::class,
             ],
             'factories'     => [
-                Page\Admission::class        =>  Factory\PageFactory::class,
-                Page\Attendance::class       =>  Factory\PageFactory::class,
-                Page\Billing::class          =>  Factory\PageFactory::class,
-                Page\ClassSchedule::class    =>  Factory\PageFactory::class,
-                Page\CourseOffering::class   =>  Factory\PageFactory::class,
-                Page\Enrollment::class       =>  Factory\PageFactory::class,
-                Page\Grade::class            =>  Factory\PageFactory::class,
-                Page\Home::class             =>  Factory\PageFactory::class,
-                Page\Exam::class             =>  Factory\PageFactory::class,
-                Page\Passbook::class         =>  Factory\PageFactory::class,
-                Page\Student::class          =>  Factory\PageFactory::class,
-                Page\Transcript::class       =>  Factory\PageFactory::class,
-                Page\Tesda::class            =>  Factory\PageFactory::class,
+                Page\Admission::class               =>  Factory\PageFactory::class,
+                Page\Attendance::class              =>  Factory\PageFactory::class,
+                Page\Billing::class                 =>  Factory\PageFactory::class,
+                Page\ClassSchedule::class           =>  Factory\PageFactory::class,
+                Page\CourseOffering::class          =>  Factory\PageFactory::class,
+                Page\Enrollment::class              =>  Factory\PageFactory::class,
+                Page\Grade::class                   =>  Factory\PageFactory::class,
+                Page\Home::class                    =>  Factory\PageFactory::class,
+                Page\Exam::class                    =>  Factory\PageFactory::class,
+                Page\Passbook::class                =>  Factory\PageFactory::class,
+                Page\Student::class                 =>  Factory\PageFactory::class,
+                Page\PermanentRecord::class         =>  Factory\PageFactory::class,
+                Page\Transcript::class              =>  Factory\PageFactory::class,
+                Page\Tesda::class                   =>  Factory\PageFactory::class,
 
                 Service\EnrollmentService::class    => Factory\EnrollmentServiceFactory::class
             ]
@@ -92,10 +93,16 @@ final class ConfigProvider
 
             // Registrar
             [
-                "name"              => "student-record",
+                "name"              => "student-list",
                 "path"              => "/students",
                 "allowed_methods"   => ['GET'],
                 'middleware'        => Page\Student::class,
+            ],
+            [
+                "name"              => "student-record",
+                "path"              => "/records/:id",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => Page\PermanentRecord::class,
             ],
             [
                 "name"              => "course-offering",

@@ -53,14 +53,14 @@ final class ConfigProvider
     public function getRouteConfig()
     {
         return [
-            'student-admission' => [
-                "name"              => "student-admission",
-                "allowed_methods"   => ['GET'],
-                "path"              => "/student/admission",
-                "middleware"        => [
-                    Page\AdmissionPageAction::class
-                ]
-            ],
+//            'student-admission' => [
+//                "name"              => "student-admission",
+//                "allowed_methods"   => ['GET'],
+//                "path"              => "/student/admission",
+//                "middleware"        => [
+//                    Page\AdmissionPageAction::class
+//                ]
+//            ],
             [
                 "name"              => "api.students",
                 "allowed_methods"   => ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'],
