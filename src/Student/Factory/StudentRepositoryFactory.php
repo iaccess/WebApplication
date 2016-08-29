@@ -35,7 +35,7 @@ final class StudentRepositoryFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $table = new TableGateway('students', $container->get('student_db_adapter'));
+        $table = new TableGateway('student', $container->get('student_db_adapter'));
         return new StudentRepository($table);
     }
 }
