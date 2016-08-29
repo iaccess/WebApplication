@@ -37,6 +37,6 @@ final class StudentDatabaseMapper extends AbstractMapperService
         parent::__construct($mapper, $resultSet);
 
         $this->primary_key  = 'guid';
-        $this->table        = 'students';
+        $this->table        = 'student';
     }
 }
