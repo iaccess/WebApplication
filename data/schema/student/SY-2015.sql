@@ -1,9 +1,9 @@
 ALTER SEQUENCE student_identification_number RESTART;
 
-ALTER TABLE IF EXISTS students
+ALTER TABLE IF EXISTS student
     ALTER COLUMN student_id SET DEFAULT CONCAT('2015-', lpad(nextval('student_identification_number')::text, 5,'0'));
 
-INSERT INTO students (first_name, middle_name, last_name) VALUES
+INSERT INTO student (first_name, middle_name, last_name) VALUES
     ('LEAH GLENN','C','ACTUB'),
     ('REGINA','ANTIPUNAN','CABIGAS'),
     ('JEANBERLY','GALOCGOG','CARBALLE'),

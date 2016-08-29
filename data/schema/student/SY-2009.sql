@@ -1,4 +1,4 @@
-INSERT INTO students (first_name, middle_name, last_name) VALUES
+INSERT INTO student (first_name, middle_name, last_name) VALUES
     ('Warren','L.','Acain'),
     ('Monaifa','A.','Amindato'),
     ('Josephine Sharon','L.','Baguio'),
