@@ -73,7 +73,7 @@ final class ConfigProvider
                 "name"              => "home",
                 "path"              => "/",
                 "allowed_methods"   => ['GET'],
-                "middleware"        => Page\Home::class,
+                "middleware"        => Page\Admission::class,
             ],
 
             // Staff Account links
