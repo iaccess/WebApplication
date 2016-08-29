@@ -27,19 +27,20 @@
 namespace Student\Repository;
 
 use Application\Repository\RepositoryInterface;
-use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Student\Entity\StudentEntity;
 use Zend\Hydrator\Reflection;
+use Zend\Db\Sql\Select;
 
 final class StudentRepository implements RepositoryInterface
 {
     /**
-     * @var TableGatewayInterface
+     * @var TableGateway
      */
     private $table;
 
-    public function __construct(TableGatewayInterface $table)
+    public function __construct(TableGateway $table)
     {
         $this->table = $table;
     }
@@ -52,7 +53,10 @@ final class StudentRepository implements RepositoryInterface
     public function fetchAll()
     {
         $resultSet  = new HydratingResultSet(new Reflection(), new StudentEntity());
-        $data = $this->table->select();
+
+        $select = $this->table->getSql()->select();
+        $select->order('student_id DESC');
+        $data = $this->table->selectWith($select);
 
         return $resultSet->initialize($data->toArray());
     }
