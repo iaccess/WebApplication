@@ -30,7 +30,7 @@
                         <thead>
                             <tr style="text-align: center;">
                                 <th>ID Number</th>
-                                <th>Name</th>                          
+                                <th>Name</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -38,7 +38,7 @@
                             <?php foreach ($this->students() as $student) : ?>
                             <tr onclick="window.location='<?php echo $this->url('student-record', ['id' => $student->getId()])?>'">
                                 <td style="width: 90px;"><?=$student->studentId()?></td>
-                                <td><?=$student->lastName().' - '.$student->firstName()?></td>
+                                <td><?php echo ucwords(strtolower($student->lastName()).', '. strtolower($student->firstName()))?></td>
                                 <td></td>
                             </tr>
                             <?php endforeach; ?>

@@ -7,8 +7,8 @@
 ?>
 <section class="content-header">
     <h1>
-      Student Master List
-      <small>List of all students as of <?php echo date('M d, Y');?>.</small>
+      Official Transcript of Record
+      <small>Student Permanent Record</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?=$this->url('home'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -16,40 +16,50 @@
     </ol>
 </section>
 <section class="content">
-    <div class="row">
-        <div class="col-md-8 col-sm-8 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>
-                        <small></small>
-                    </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <i style="font-size: 20px;">Last Name</i>
                 </div>
-                
-                <div class="table-responsive">
-<!--                    <table class="table table-bordered table-condensed table-hover table-striped">
-                        <thead>
-                            <tr style="text-align: center;">
-                                <th>ID Number</th>
-                                <th>Name</th>                          
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php // $student = $this->students() ; ?>
-                            <tr>
-                                <td style="width: 90px;"></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>-->
-                    <div class="clearfix"></div>
+                <div class="row">
+                    <strong style="font-size: 30px"><?php echo $student->lastName(); ?></strong>
                 </div>
-                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <i style="font-size: 20px;">First Name</i>
+                </div>
+                <div class="row">
+                    <strong style="font-size: 30px"><?php echo $student->firstName(); ?></strong>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <i style="font-size: 20px;">Middle Name</i>
+                </div>
+                <div class="row">
+                    <strong style="font-size: 30px"><?php echo $student->middleName(); ?></strong>
+                </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-4">
-            
+        <div class="row">
+            <div class="col-md-2">
+                <img src="/assets/site/images/iaccess-logo.png" class="img-responsive">
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-4">
+                    <div class="row">
+                        <i style="font-size: 20px;">Gender</i>
+                    </div>
+                    <div class="row">
+                        <strong style="font-size: 30px"><?php // echo $student->middleName(); ?></strong>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    
+                </div>
+            </div>
         </div>
     </div>
 </section>

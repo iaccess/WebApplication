@@ -63,7 +63,9 @@ final class StudentRepository implements RepositoryInterface
 
     public function find($id)
     {
+        $resultSet  = new HydratingResultSet(new Reflection(), new StudentEntity());
         $result = $this->table->select(['guid'=> $id])->toArray();
-        return $result;
+
+        return $resultSet->initialize($result);
     }
 }

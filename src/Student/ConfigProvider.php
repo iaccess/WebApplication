@@ -45,7 +45,8 @@ final class ConfigProvider
         return [
             'factories' => [
                 Page\AdmissionPageAction::class     => AppFactory\PageFactory::class,
-                Service\StudentRestService::class   => Factory\Service\StudentRestServiceFactory::class
+                Service\StudentRestService::class   => Factory\Service\StudentRestServiceFactory::class,
+                Repository\StudentRepository::class => Factory\StudentRepositoryFactory::class,
             ]
         ];
     }

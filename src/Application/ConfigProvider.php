@@ -58,7 +58,7 @@ final class ConfigProvider
                 Page\Exam::class                    =>  Factory\PageFactory::class,
                 Page\Passbook::class                =>  Factory\PageFactory::class,
                 Page\Student::class                 =>  Factory\PageFactory::class,
-                Page\PermanentRecord::class         =>  Factory\PageFactory::class,
+                Page\PermanentRecord::class         =>  Factory\StudentRecordPageFactory::class,
                 Page\Transcript::class              =>  Factory\PageFactory::class,
                 Page\Tesda::class                   =>  Factory\PageFactory::class,
 
@@ -100,7 +100,7 @@ final class ConfigProvider
             ],
             [
                 "name"              => "student-record",
-                "path"              => "/records/:id",
+                "path"              => "/students/:id",
                 "allowed_methods"   => ['GET'],
                 'middleware'        => Page\PermanentRecord::class,
             ],

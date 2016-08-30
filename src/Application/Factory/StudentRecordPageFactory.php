@@ -24,47 +24,32 @@
  * THE SOFTWARE.
  */
 
-namespace Application\Page;
+namespace Application\Factory;
 
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
-use Zend\Stratigility\MiddlewareInterface;
-use Zend\Diactoros\Response\HtmlResponse;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 use Student\Repository\StudentRepository;
-use Student\Entity\StudentEntity;
-use Zend\Hydrator\Reflection;
+use Application\Page\PermanentRecord;
 
-final class PermanentRecord implements MiddlewareInterface
+final class StudentRecordPageFactory implements FactoryInterface
 {
     /**
-     * @var TemplateRendererInterface
-     */
-    private $template;
-
-    /**
+     * @todo Include RouterInterface
      *
-     * @var StudentRepository
+     * @param ContainerInterface $container
+     * @param type $requestedName
+     * @param array $options
+     * @return $requestedName
      */
-    private $repository;
-
-    /**
-     * HTML page
-     *
-     * @param TemplateRendererInterface $template
-     */
-    public function __construct(TemplateRendererInterface $template, StudentRepository $repository)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $this->template     = $template;
-        $this->repository   = $repository;
-    }
+        if (!$container->has(TemplateRendererInterface::class)) {
+            return null;
+        }
 
-    public function __invoke(Request $request, Response $response, callable $out = null)
-    {
-        $id = trim($request->getAttribute('id'));
-        $student = $this->repository->find($id);
-        $data = ["student" => $student->current()];
-
-        return new HtmlResponse($this->template->render('dashboard::page/student-record', $data));
+        $template   = $container->get(TemplateRendererInterface::class);
+        $repository = $container->get(StudentRepository::class);
+        return new PermanentRecord($template, $repository);
     }
 }
