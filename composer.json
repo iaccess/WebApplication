@@ -64,7 +64,7 @@
         ],
         "post-update-cmd": [
             "@include-database-config",
-            "@update-ui-component",
+            "@install-ui-component",
             "@show-me-the-bugs"
         ],
         "post-create-project-cmd": [
@@ -79,11 +79,6 @@
         "install-ui-component": [
             "@remove-assets",
             "bower install",
-            "@copy-assets"
-        ],
-        "update-ui-component": [
-            "@remove-assets",
-            "bower update",
             "@copy-assets"
         ],
         "remove-assets": [
