@@ -48,11 +48,7 @@ final class Prime implements MiddlewareInterface
 
     public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        if ('GET' !== strtoupper($request->getMethod())) {
-            return $out($request, $response);
-        }
-
-        if ((200 !== $response->getStatusCode())) {
+        if (('GET' !== strtoupper($request->getMethod())) xor (200 !== $response->getStatusCode())) {
             return $out($request, $response);
         }
 
