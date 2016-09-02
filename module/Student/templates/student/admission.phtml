@@ -105,8 +105,8 @@
                     </div>
                     <div class="form-group <?php echo $last_name_has_error;?>">
                         <?php echo $this->formLabel($last_name) ?>
-                        <?php echo $this->formElement($last_name) ?>
                         <?php echo $this->formElementErrors()->render($last_name, ['class' => 'help-block']) ?>
+                        <?php echo $this->formElement($last_name) ?>                        
                     </div>
                     
                     <div class="form-group <?php echo $birthdate_has_error;?>">
