@@ -24,25 +24,18 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace Schedule;
 
 final class ConfigProvider
 {
     public function __invoke()
     {
         return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
-        ];
-    }
-
-    public function getViewHelperConfig()
-    {
-        return [
-            'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
-            ]
+            'dependencies'          => '',
+            'routes'                => '',
+            'templates'             => '',
+            'view_helpers'          => '',
+            'middleware_pipeline'   => ''
         ];
     }
 }

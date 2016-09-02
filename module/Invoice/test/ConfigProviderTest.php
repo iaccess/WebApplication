@@ -24,25 +24,26 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace InvoiceTest;
 
-final class ConfigProvider
+use PHPUnit\Framework\TestCase;
+use Invoice;
+
+class ConfigProviderTest extends TestCase
 {
-    public function __invoke()
+    /**
+     * @var ConfigProvider
+     */
+    private $configProvider;
+
+    public function setUp()
     {
-        return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
-        ];
+        $this->configProvider = new Invoice\ConfigProvider();
     }
 
-    public function getViewHelperConfig()
+    public function testConfigProviderKeySettings()
     {
-        return [
-            'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
-            ]
-        ];
+        $config = $this->configProvider->__invoke();
+        $this->assertArrayHasKey('view_helpers', $config);
     }
 }

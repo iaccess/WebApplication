@@ -24,25 +24,18 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace Tesda\Repository;
 
-final class ConfigProvider
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Tesda\Repository\MasterlistRepository;
+use Interop\Container\ContainerInterface;
+use Zend\Db\TableGateway\TableGateway;
+
+final class RepositoryFactory implements FactoryInterface
 {
-    public function __invoke()
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
-        ];
-    }
-
-    public function getViewHelperConfig()
-    {
-        return [
-            'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
-            ]
-        ];
+        $table = new TableGateway('training_program', $container->get('tesda_db_adapter'));
+        return new MasterlistRepository($table);
     }
 }

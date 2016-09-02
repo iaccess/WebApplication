@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS student (
     birthdate date,
     civil_status_id smallint NOT NULL DEFAULT 1,
     is_active boolean NOT NULL DEFAULT false,
+    contact_number VARCHAR(11) NOT NULL DEFAULT '',
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp with time zone,
     deleted_at timestamp with time zone,

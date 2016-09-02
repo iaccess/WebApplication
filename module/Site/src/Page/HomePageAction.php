@@ -24,22 +24,26 @@
  * THE SOFTWARE.
  */
 
-namespace Student\Page;
+namespace Site\Page;
 
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-//use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Stratigility\MiddlewareInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 
-final class Admission implements MiddlewareInterface
+final class HomePageAction implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
      */
     private $template;
 
+    /**
+     * HTML page
+     *
+     * @param TemplateRendererInterface $template
+     */
     public function __construct(TemplateRendererInterface $template)
     {
         $this->template = $template;
@@ -47,36 +51,6 @@ final class Admission implements MiddlewareInterface
 
     public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        $data   = $request->getParsedBody();
-        $params = [];
-
-        if ('POST' == $request->getMethod()) {
-            if (500 == $response->getStatusCode()) {
-                $params['error_message'] = "Name already existing";
-                $params['currentData'] = $data;
-            }
-
-            if (409 == $response->getStatusCode()) {
-                $params['error_message'] = "Name already existing";
-                $params['currentData'] = $data;
-                $params['validationErrors'] = [
-                    'first_name' => 'Name already existing',
-                    'middle_name' => 'Name already existing',
-                    'last_name' => 'Name already existing',
-                ];
-            }
-
-            if (406 == $response->getStatusCode()) {
-                $params['currentData'] = $data;
-                $params['validationErrors'] = $request->getAttribute('form-validation-errors');
-            }
-
-            if (201 == $response->getStatusCode()) {
-                $params['message'] = "Successfully added.";
-                //return new RedirectResponse('/enrollment');
-            }
-        }
-
-        return new HtmlResponse($this->template->render('student::admission', $params));
+        return new HtmlResponse($this->template->render('site::home'));
     }
 }

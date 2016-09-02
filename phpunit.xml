@@ -11,11 +11,11 @@
         <log type="testdox-txt" target="public/build/phpdox/testdox.txt"/>
     </logging>
     <testsuite name="regression">
-        <directory>./test/</directory>
+        <directory>./module/**/test/</directory>
     </testsuite>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/</directory>
+            <directory suffix=".php">./module/**/src/</directory>
         </whitelist>
     </filter>
 </phpunit>

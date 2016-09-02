@@ -24,25 +24,50 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace Tesda\Entity;
 
-final class ConfigProvider
+final class TrainingProgram
 {
-    public function __invoke()
+    private $code;
+    private $title;
+    private $level;
+    private $slug;
+    private $description;
+    private $status;
+    private $hours;
+
+    public function getId()
     {
-        return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
-        ];
+        return $this->code;
     }
 
-    public function getViewHelperConfig()
+    public function getLevel()
     {
-        return [
-            'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
-            ]
-        ];
+        return $this->level;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getHours()
+    {
+        return $this->hours;
     }
 }

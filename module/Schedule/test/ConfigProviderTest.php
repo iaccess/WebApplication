@@ -24,25 +24,29 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace ScheduleTest;
 
-final class ConfigProvider
+use PHPUnit\Framework\TestCase;
+use Schedule;
+
+final class ConfigProviderTest extends TestCase
 {
-    public function __invoke()
+    /**
+     * @var ConfigProvider
+     */
+    private $configProvider;
+
+    public function setUp()
     {
-        return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
-        ];
+        $this->configProvider = new Schedule\ConfigProvider();
     }
 
-    public function getViewHelperConfig()
+    public function testConfigProviderKeySettings()
     {
-        return [
-            'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
-            ]
-        ];
+        $config = $this->configProvider->__invoke();
+        $this->assertArrayHasKey('dependencies', $config);
+        $this->assertArrayHasKey('routes', $config);
+        $this->assertArrayHasKey('templates', $config);
+        $this->assertArrayHasKey('view_helpers', $config);
     }
 }

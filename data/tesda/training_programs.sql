@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS training_program (
 
 INSERT INTO training_program (sector_code, code, title, slug, level, hours) VALUES
     ('ELC', 'ELCEPA213', 'Electronics Products Assembly and Servicing NC II', 'electronics-products-assembly-and-servicing-nc-2', 2, 260),
-    ('ELC', 'ELCCSS213', 'Computer Systems Servicing NC II', 'computer-systems-servicing-nc-2', 2, 392),
+    ('ELC', 'ELCCSS213', 'Computer Systems Servicing NC II', 'computer-systems-servicing-nc-2', 2, 280),
     ('SOC', 'SOCBKP308', 'Bookkeeping NC III', 'bookkeeping-nc-3', 3, 292),
     ('SOC', 'SOCSES105', 'Security Services NC I', 'security-services-nc-1', 1, 170),
     ('SOC', 'SOCSES207', 'Security Services NC II', 'security-services-nc-2', 2, 223),

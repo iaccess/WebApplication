@@ -24,24 +24,49 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace Site;
+
+use Application\Factory as AppFactory;
 
 final class ConfigProvider
 {
     public function __invoke()
     {
         return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
+            'dependencies'  => $this->getServiceConfig(),
+            'routes'        => $this->getRouteConfig(),
+            'templates'     => $this->getViewConfig()
         ];
     }
 
-    public function getViewHelperConfig()
+    public function getServiceConfig()
     {
         return [
             'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
+                Page\HomePageAction::class => AppFactory\Page\HtmlPageInitializerFactory::class
+            ]
+        ];
+    }
+
+    public function getRouteConfig()
+    {
+        return [
+            'home' => [
+                "name"  => "home",
+                "path"  => "/",
+                "allowed_method" => ['GET'],
+                "middleware"    => Page\HomePageAction::class
+            ]
+        ];
+    }
+
+    public function getViewConfig()
+    {
+        $path = __DIR__ . '/../../templates';
+
+        return [
+            'paths'     => [
+                'site'  => [$path . '/site']
             ]
         ];
     }

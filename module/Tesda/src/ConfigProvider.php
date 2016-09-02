@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace Tesda;
 
 final class ConfigProvider
 {
@@ -41,7 +41,7 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
+                'tvetPrograms'  => Repository\RepositoryFactory::class
             ]
         ];
     }

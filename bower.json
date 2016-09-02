@@ -1,8 +1,8 @@
 {
     "name": "iaccess-web-application",
     "dependencies": {
-        "jquery": "^2.2",
-        "jquery-ui": "^1.11",
+        "jquery": "^3.1",
+        "jquery-ui": "^1.12",
         "components-font-awesome": "^4.6",
         "components-bootstrap": "^3.3"
     }

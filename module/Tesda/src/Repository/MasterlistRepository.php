@@ -24,25 +24,48 @@
  * THE SOFTWARE.
  */
 
-namespace Invoice;
+namespace Tesda\Repository;
 
-final class ConfigProvider
+use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Db\ResultSet\HydratingResultSet;
+use Tesda\Entity\TrainingProgram;
+use Zend\Hydrator\Reflection;
+
+final class MasterlistRepository
 {
-    public function __invoke()
+    /**
+     * @var TableGatewayInterface
+     */
+    private $table;
+
+    public function __construct(TableGatewayInterface $table)
     {
-        return [
-            'view_helpers'  => $this->getViewHelperConfig(),
-            //'dependencies'  => $this->getServiceConfig(),
-            //'routes'        => $this->getRouteConfig(),
-        ];
+        $this->table = $table;
     }
 
-    public function getViewHelperConfig()
+    public function __invoke($id = null)
     {
-        return [
-            'factories' => [
-                'tuitionFees'  => Repository\RepositoryFactory::class
-            ]
-        ];
+        if (null !== $id) {
+            return $this->find($id);
+        }
+
+        return $this->fetchAll();
+    }
+
+    public function fetchAll()
+    {
+        $resultSet  = new HydratingResultSet(new Reflection(), new TrainingProgram());
+        $data = $this->table->select();
+
+        return $resultSet->initialize($data->toArray());
+    }
+
+    public function find($id)
+    {
+        $resultSet  = new HydratingResultSet(new Reflection(), new TrainingProgram());
+        $data = $this->table->select(['code' => $id]);
+        $result = $resultSet->initialize($data->toArray());
+
+        return $result->current();
     }
 }

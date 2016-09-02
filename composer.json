@@ -1,6 +1,6 @@
 {
-    "name": "iaccess/web-application",    
-    "type": "project",    
+    "name": "iaccess/web-application",
+    "type": "project",
     "license": "MIT",
     "authors": [
         {
@@ -11,8 +11,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev",
-            "dev-develop": "1.1-dev"
+            "dev-develop": "1.0-dev"
         }
     },
     "require": {
@@ -21,17 +20,18 @@
         "mtymek/expressive-config-manager": "^1.0 || ~0.4",
         "codingmatters/zend-expressive-config-provider": "^1.0 || ~0.1",
         "codingmatters/zend-expressive-zend-component": "^1.0 || ~0.1",
+        "zendframework/zend-db": "^2.8",
+        "zendframework/zend-hydrator": "^2.2",
         "zendframework/zend-navigation": "^2.8",
         "zendframework/zend-form": "^2.9",
         "zendframework/zend-session": "^2.7",
         "zendframework/zend-math": "^3.0",
-        "doctrine/annotations": "^1.2",
-        "codingmatters/data-persistence-layer": "^0.1.2"
+        "doctrine/annotations": "^1.2"
     },
     "require-dev": {       
         "zendframework/zend-component-installer": "^1.0 || ~0.3",
         "zfcampus/zf-development-mode": "^3.0",
-        "zendframework/zend-test": "^3.0.1",
+        "phpunit/phpunit": "^5.5",
         "squizlabs/php_codesniffer": "^2.6.2",
         "phpbench/phpbench": "^0.11.2",
         "sebastian/phpcpd": "^2.0.4",
@@ -39,20 +39,22 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "src/Application/",
-            "Tuition\\": "src/Tuition/",
-            "Dashboard\\": "src/Dashboard/",
-            "Site\\": "src/Site/",
-            "Student\\": "src/Student/",            
-            "Tesda\\": "src/Tesda/"
+            "Dashboard\\": "module/Dashboard/src/",
+            "Student\\": "module/Student/src/",
+            "Schedule\\": "module/Schedule/src/",
+            "Tesda\\": "module/Tesda/src/",
+            "Site\\": "module/Site/src/",
+            "Invoice\\": "module/Invoice/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "test/ApplicationTest/",
-            "DashboardTest\\": "test/DashboardTest/",
-            "SiteTest\\": "test/SiteTest/",
-            "StudentTest\\": "test/StudentTest/"
+            "DashboardTest\\": "module/Dashboard/test/",
+            "StudentTest\\": "module/Student/test/",
+            "ScheduleTest\\": "module/Schedule/test/",
+            "TesdaTest\\": "module/Tesda/test/",
+            "SiteTest\\": "module/Site/test/",
+            "InvoiceTest\\": "module/Invoice/test/"
         }
     },
     "scripts": {
@@ -97,16 +99,16 @@
             "cp -ar bower_components/components-bootstrap public/assets/bootstrap",
             "rm -rf bower_components"
         ],
-        "include-database-config": [            
+        "include-database-config": [
             "cp -au config/autoload/database.local.php.dist config/autoload/database.local.php"
         ],
-        "cs": "phpcs --ignore=/vendor,/build src",
-        "cs-fix": "phpcbf --ignore=/vendor,/build src",
-        "cpd": "phpcpd --exclude=/vendor,/build --names-exclude=Module.php,ConfigProvider.php --fuzzy src",
-        "test": "phpunit",                
+        "cs": "phpcs --ignore=/vendor,/build module",
+        "cs-fix": "phpcbf --ignore=/vendor,/build module",
+        "cpd": "phpcpd --exclude=/vendor,/build --names-exclude=Module.php,ConfigProvider.php --fuzzy module",
+        "test": "phpunit",
         "development-disable": "zf-development-mode disable",
         "development-enable": "zf-development-mode enable",
         "development-status": "zf-development-mode status",
-        "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php"        
+        "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php"
     }
 }
