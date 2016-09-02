@@ -45,30 +45,13 @@ final class Register implements MiddlewareInterface
 
     public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        if ('POST' !== strtoupper($request->getMethod())) {
+        if (('POST' !== strtoupper($request->getMethod())) xor (200 !== $response->getStatusCode())) {
             return $out($request, $response);
         }
 
-        if ((200 !== $response->getStatusCode())) {
-            return $out($request, $response);
-        }
+        $data = $this->cleanData($request->getParsedBody());
 
-        $data = $request->getParsedBody();
-        $data['first_name']     = mb_strtoupper($data['first_name'], 'UTF-8');
-        $data['middle_name']    = mb_strtoupper($data['middle_name'], 'UTF-8');
-        $data['last_name']      = mb_strtoupper($data['last_name'], 'UTF-8');
-
-        unset($data['submit']);
-
-        $select = [
-            'first_name'    => $data['first_name'],
-            'middle_name'   => $data['middle_name'],
-            'last_name'     => $data['last_name'],
-        ];
-
-        $output = $this->table->select($select);
-
-        if ($output->count() > 0) {
+        if ($this->hasDuplicateRecord($data)) {
             return $out($request, $response->withStatus(409));
         }
 
@@ -77,5 +60,31 @@ final class Register implements MiddlewareInterface
         }
 
         return $out($request, $response->withStatus(201));
+    }
+
+    private function cleanData(array $data)
+    {
+        unset($data['submit']);
+
+        // Fixing type case
+        $data['first_name']     = mb_strtoupper($data['first_name'], 'UTF-8');
+        $data['middle_name']    = mb_strtoupper($data['middle_name'], 'UTF-8');
+        $data['last_name']      = mb_strtoupper($data['last_name'], 'UTF-8');
+
+        return $data;
+    }
+
+    private function hasDuplicateRecord(array $data)
+    {
+        $result = $this->table
+                    ->select(
+                        [
+                            'first_name'    => $data['first_name'],
+                            'middle_name'   => $data['middle_name'],
+                            'last_name'     => $data['last_name'],
+                        ]
+                    );
+
+        return ($result->count() > 0) ? true : false;
     }
 }
