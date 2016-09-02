@@ -54,6 +54,8 @@ final class EnlistmentFormTest extends TestCase
             'last_name'             => 'Gab',
             'birthdate'             => '2011-02-18',
             'contact_number'        => '09876543210',
+            'gender'                => 'male',
+            'civil_status_id'       => 1,
             'admission_form_token'  => $csrf->getValue()
         ];
 

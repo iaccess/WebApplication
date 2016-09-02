@@ -12,17 +12,18 @@
     $number_has_error = '';
 
     $form   = $this->studentForm();
-    $form->setAttribute('action', $this->url());
+    $form->setAttribute('action', $this->url('student.admission'));
 
     $submit = $form->get('submit');
-    $submit->setAttribute('value', "Add");
-    $submit->setAttribute('class', "btn btn-primary pull-right");
+    $submit->setAttribute('value', "Submit");
+    $submit->setAttribute('class', "btn btn-primary btn-lg pull-right");
     $first_name = $form->get('first_name');
     $middle_name = $form->get('middle_name');
     $last_name = $form->get('last_name');
     $birthdate = $form->get('birthdate');
     $contact_number = $form->get('contact_number');
-    
+    $gender = $form->get('gender');
+    $status = $form->get('civil_status_id');
     
     if (isset($this->currentData)) {
         $first_name->setValue($this->currentData['first_name']);
@@ -30,6 +31,8 @@
         $last_name->setValue($this->currentData['last_name']);
         $birthdate->setValue($this->currentData['birthdate']);
         $contact_number->setValue($this->currentData['contact_number']);
+        $gender->setValue($this->currentData['gender']);
+        $status->setValue($this->currentData['civil_status_id']);
         
         if (isset($this->validationErrors['first_name'])) {
             $first_name_has_error = 'has-error';
@@ -71,69 +74,82 @@
 </section>
 <div class="divider"><br></div>
 <section class="content">
-    <div class="row">
-        <div class="col-md-9">
+    <div class="container-fluid">
+        <div class="row">
             <?php if (isset($this->message)) : ?>
-            <blockquote class="text-success">
-                <p><?php echo $this->message; ?></p>
-            </blockquote>
-            <?php endif; ?>
-            <?php if (isset($this->error_message)) : ?>
-            <blockquote class="text-danger">
-                <p><?php echo $this->error_message; ?></p>
-            </blockquote>
-            <?php endif; ?>
-            <?php echo $this->form()->openTag($form); ?> 
-                <fieldset>
-                    <legend>Personal Information:</legend>
-                    <!--
-                    <div class="form-group">
-                        <?php // echo $this->formLabel($form->get('student_id')) ?>
-                        <?php // echo $this->formElementErrors()->render($form->get('student_id'), ['class' => 'help-block']) ?>
-                        <?php // echo $this->formElement($form->get('student_id')) ?>                        
-                    </div>
-                    -->
+                <blockquote class="text-success">
+                    <p><?php echo $this->message; ?></p>
+                </blockquote>
+                <?php endif; ?>
+                <?php if (isset($this->error_message)) : ?>
+                <blockquote class="text-danger">
+                    <p><?php echo $this->error_message; ?></p>
+                </blockquote>
+                <?php endif; ?>
+        </div>
+        <?php echo $this->form()->openTag($form); ?> 
+        <fieldset>
+            <legend>Personal Information:</legend>
+            <div class="row">
+                <div class="col-md-4">
                     <div class="form-group <?php echo $first_name_has_error;?>">
                         <?php echo $this->formLabel($first_name) ?>
-                        <?php echo $this->formElementErrors()->render($first_name, ['class' => 'help-block']) ?>
+                        <small><?php echo $this->formElementErrors()->render($first_name, ['class' => 'help-block']) ?></small>
                         <?php echo $this->formElement($first_name) ?>                        
                     </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group <?php echo $middle_name_has_error;?>">
                         <?php echo $this->formLabel($middle_name) ?>
-                        <?php echo $this->formElementErrors()->render($middle_name, ['class' => 'help-block']) ?>
+                        <small> <?php echo $this->formElementErrors()->render($middle_name, ['class' => 'help-block']) ?> </small>
                         <?php echo $this->formElement($middle_name) ?>                        
                     </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group <?php echo $last_name_has_error;?>">
                         <?php echo $this->formLabel($last_name) ?>
-                        <?php echo $this->formElementErrors()->render($last_name, ['class' => 'help-block']) ?>
+                        <small> <?php echo $this->formElementErrors()->render($last_name, ['class' => 'help-block']) ?> </small>
                         <?php echo $this->formElement($last_name) ?>                        
                     </div>
-                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
                     <div class="form-group <?php echo $birthdate_has_error;?>">
                         <?php echo $this->formLabel($birthdate) ?>
-                        <?php echo $this->formElementErrors()->render($birthdate, ['class' => 'help-block']) ?>
+                        <small> <?php echo $this->formElementErrors()->render($birthdate, ['class' => 'help-block']) ?> </small>                        
                         <?php echo $this->formElement($birthdate) ?>                        
                     </div>
-                    
+                </div>
+                <div class="col-md-3">
                     <div class="form-group <?php echo $number_has_error;?>">
                         <?php echo $this->formLabel($contact_number) ?>
-                        <?php echo $this->formElementErrors()->render($contact_number, ['class' => 'help-block']) ?>
+                        <small><?php echo $this->formElementErrors()->render($contact_number, ['class' => 'help-block']) ?></small>
                         <?php echo $this->formElement($contact_number) ?>                        
-                    </div>                       
-                </fieldset>
-                <!-- 
-                <fieldset>
-                    <legend>Educational Background:</legend>
-                </fieldset>
-                -->
-                <div class="form-group">
-                    <?php echo $this->formElement($submit); ?>
-                </div> 
-            <?php echo $this->form()->closeTag(); ?>
-            <div class="divider"><hr></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <?php echo $this->formLabel($gender) ?>                      
+                        <?php echo $this->formElement($gender) ?>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <?php echo $this->formLabel($status) ?>                      
+                        <?php echo $this->formElement($status) ?>
+                    </div>
+                </div>  
+            </div>
+        </fieldset>
+<!--        <fieldset>
+            <legend>Educational Background:</legend>
+        </fieldset>-->
+        <div class="form-group">
+            <?php echo $this->formElement($submit); ?>
         </div>
-        <div class="col-md-3">
-            
-        </div>
+        <?php echo $this->form()->closeTag(); ?>
+        <div class="divider"><hr></div>
+        <div class="clearfix"></div>
     </div>
 </section>

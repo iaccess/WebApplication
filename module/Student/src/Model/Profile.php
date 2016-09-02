@@ -88,6 +88,24 @@ final class Profile
      */
     private $contact_number;
 
+    /**
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":4, "max":6}})
+     * @Annotation\Type("Zend\Form\Element\Select")
+     * @Annotation\Options({"label":"Gender:"})
+     * @Annotation\Attributes({"class":"form-control", "options":{"male":"Male","female":"Female"}})
+     */
+    private $gender;
+
+    /**
+     * @Annotation\Filter({"name":"Digits"})
+     * @Annotation\Validator({"name":"Digits"})
+     * @Annotation\Type("Zend\Form\Element\Select")
+     * @Annotation\Options({"label":"Civil Status:"})
+     * @Annotation\Attributes({"class":"form-control", "options":{"1":"Single","2":"Married","3":"Widow/er","4":"Separated"}})
+     */
+    private $civil_status_id;
+
     public function getSecureToken()
     {
         return $this->guid;
@@ -121,5 +139,15 @@ final class Profile
     public function getContactNumber()
     {
         return $this->contact_number;
+    }
+
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    public function getCivilStatus()
+    {
+        return $this->civil_status_id;
     }
 }
