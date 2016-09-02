@@ -31,11 +31,53 @@ final class ConfigProvider
     public function __invoke()
     {
         return [
-            'dependencies'          => '',
-            'routes'                => '',
-            'templates'             => '',
-            'view_helpers'          => '',
-            'middleware_pipeline'   => ''
+            'dependencies'          => $this->getServiceConfig(),
+            'routes'                => $this->getRouteConfig(),
+            'templates'             => $this->getViewConfig(),
+            'view_helpers'          => $this->getViewHelperConfig()
+        ];
+    }
+
+    public function getServiceConfig()
+    {
+        return [
+            'factories' => [
+                Page\ClassSchedule::class   => Factory\HtmlPageFactory::class,
+                Query\Masterlist::class     => Factory\QueryFactory::class
+            ]
+        ];
+    }
+
+    public function getRouteConfig()
+    {
+        return [
+            'class.schedule' => [
+                "name"              => "class.schedule",
+                "path"              => "/classes",
+                "allowed_methods"   => ['GET'],
+                'middleware'        => [
+                    Query\Masterlist::class,
+                    Page\ClassSchedule::class
+                ]
+            ],
+        ];
+    }
+
+    public function getViewHelperConfig()
+    {
+        return [
+            'factories' => [
+                'classSchedules'    => ''
+            ]
+        ];
+    }
+
+    public function getViewConfig()
+    {
+        return [
+            'paths' => [
+                'schedule'  => [__DIR__ . '/../templates/schedule']
+            ]
         ];
     }
 }
