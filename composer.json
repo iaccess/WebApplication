@@ -35,7 +35,8 @@
         "squizlabs/php_codesniffer": "^2.6.2",
         "phpbench/phpbench": "^0.11.2",
         "sebastian/phpcpd": "^2.0.4",
-        "filp/whoops": "^2.0"
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.6"
     },
     "autoload": {
         "psr-4": {
