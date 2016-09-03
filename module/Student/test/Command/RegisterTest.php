@@ -32,6 +32,7 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
 use PHPUnit\Framework\TestCase;
 use Student\Command\Register;
+use Faker\Factory;
 
 final class RegisterTest extends TestCase
 {
@@ -39,6 +40,7 @@ final class RegisterTest extends TestCase
     private $resultSet;
     private $response;
     private $request;
+    private $person;
 
     public function setUp()
     {
@@ -46,6 +48,13 @@ final class RegisterTest extends TestCase
         $this->response     = $this->prophesize(ResponseInterface::class);
         $this->request      = $this->prophesize(ServerRequestInterface::class);
         $this->resultSet    = $this->prophesize(ResultSet::class);
+
+        $person = Factory::create();
+        $this->person = [
+            'first_name'    => mb_strtoupper($person->firstName),
+            'middle_name'   => mb_strtoupper($person->lastName),
+            'last_name'     => mb_strtoupper($person->lastName)
+        ];
     }
 
     public function invalidConditions()
@@ -93,21 +102,15 @@ final class RegisterTest extends TestCase
 
     public function testShouldNotAllowDuplicateData()
     {
-        $duplicate = [
-            'first_name'    => "GAB",
-            'middle_name'   => "A",
-            'last_name'     => "AMBA"
-        ];
-
         $this->response->getStatusCode()->willReturn(200);
         $this->response->withStatus(409)->willReturn(null);
 
         $this->request->getMethod()->willReturn("POST");
-        $this->request->getParsedBody()->willReturn($duplicate);
+        $this->request->getParsedBody()->willReturn($this->person);
 
         $this->resultSet->count()->willReturn(1);
 
-        $this->tableGateway->select($duplicate)->willReturn($this->resultSet->reveal());
+        $this->tableGateway->select($this->person)->willReturn($this->resultSet->reveal());
         $object = new Register($this->tableGateway->reveal());
 
         $output = $object->__invoke(
@@ -122,22 +125,16 @@ final class RegisterTest extends TestCase
 
     public function testInsertNewRecord()
     {
-        $duplicate = [
-            'first_name'    => "GAB",
-            'middle_name'   => "A",
-            'last_name'     => "AMBA"
-        ];
-
         $this->response->getStatusCode()->willReturn(200);
         $this->response->withStatus(201)->willReturn(null);
 
         $this->request->getMethod()->willReturn("POST");
-        $this->request->getParsedBody()->willReturn($duplicate);
+        $this->request->getParsedBody()->willReturn($this->person);
 
         $this->resultSet->count()->willReturn(0);
 
-        $this->tableGateway->select($duplicate)->willReturn($this->resultSet->reveal());
-        $this->tableGateway->insert($duplicate)->willReturn(1);
+        $this->tableGateway->select($this->person)->willReturn($this->resultSet->reveal());
+        $this->tableGateway->insert($this->person)->willReturn(1);
 
         $object = new Register($this->tableGateway->reveal());
 
@@ -153,22 +150,16 @@ final class RegisterTest extends TestCase
 
     public function testFailToInsertNewRecord()
     {
-        $duplicate = [
-            'first_name'    => "GAB",
-            'middle_name'   => "A",
-            'last_name'     => "AMBA"
-        ];
-
         $this->response->getStatusCode()->willReturn(200);
         $this->response->withStatus(500)->willReturn(null);
 
         $this->request->getMethod()->willReturn("POST");
-        $this->request->getParsedBody()->willReturn($duplicate);
+        $this->request->getParsedBody()->willReturn($this->person);
 
         $this->resultSet->count()->willReturn(0);
 
-        $this->tableGateway->select($duplicate)->willReturn($this->resultSet->reveal());
-        $this->tableGateway->insert($duplicate)->willReturn(0);
+        $this->tableGateway->select($this->person)->willReturn($this->resultSet->reveal());
+        $this->tableGateway->insert($this->person)->willReturn(0);
 
         $object = new Register($this->tableGateway->reveal());
 

@@ -39,17 +39,20 @@ final class AdmissionTest extends TestCase
     /** @var TemplateRendererInterface */
     private $template;
 
-    /**
-     * Html Content
-     * @var string
-     */
-    private $page;
+    private $person;
 
     private $params = [];
 
     public function setUp()
     {
         $this->template = $this->prophesize(TemplateRendererInterface::class);
+
+        $person = Factory::create();
+        $this->person = [
+            'first_name'    => mb_strtoupper($person->firstName),
+            'middle_name'   => mb_strtoupper($person->lastName),
+            'last_name'     => mb_strtoupper($person->lastName)
+        ];
     }
 
     public function testMustReturnHtmlResponse()
@@ -66,22 +69,14 @@ final class AdmissionTest extends TestCase
 
     public function testPostExistingRecordWith500Status()
     {
-        $person = Factory::create();
-        $stub = [
-            'first_name'    => $person->firstName,
-            'middle_name'   => $person->lastName,
-            'last_name'     => $person->lastName
-        ];
-
-
         $request  = $this->prophesize(ServerRequest::class);
         $request->getMethod()->willReturn("POST");
-        $request->getParsedBody()->willReturn($stub);
+        $request->getParsedBody()->willReturn($this->person);
 
         $response = $this->prophesize(Response::class);
         $response->getStatusCode()->willReturn(500);
 
-        $this->params['currentData'] = $stub;
+        $this->params['currentData'] = $this->person;
         $this->params['error_message'] = "Name already existing";
 
         $this->template->render('student::admission', $this->params)->willReturn('html page');
@@ -94,22 +89,14 @@ final class AdmissionTest extends TestCase
 
     public function testPostExistingRecordWith409Status()
     {
-        $person = Factory::create();
-        $stub = [
-            'first_name'    => $person->firstName,
-            'middle_name'   => $person->lastName,
-            'last_name'     => $person->lastName
-        ];
-
-
         $request  = $this->prophesize(ServerRequest::class);
         $request->getMethod()->willReturn("POST");
-        $request->getParsedBody()->willReturn($stub);
+        $request->getParsedBody()->willReturn($this->person);
 
         $response = $this->prophesize(Response::class);
         $response->getStatusCode()->willReturn(409);
 
-        $this->params['currentData'] = $stub;
+        $this->params['currentData'] = $this->person;
         $this->params['error_message'] = "Name already existing";
         $this->params['validationErrors'] = [
            'first_name'    => 'Name already existing',
@@ -127,13 +114,6 @@ final class AdmissionTest extends TestCase
 
     public function testPostWithValidationErrors()
     {
-        $person = Factory::create();
-        $stub = [
-            'first_name'    => $person->firstName,
-            'middle_name'   => $person->lastName,
-            'last_name'     => $person->lastName
-        ];
-
         $errors = [
             'first_name'    => 'Name already existing',
             'middle_name'   => 'Name already existing',
@@ -142,13 +122,13 @@ final class AdmissionTest extends TestCase
 
         $request  = $this->prophesize(ServerRequest::class);
         $request->getMethod()->willReturn("POST");
-        $request->getParsedBody()->willReturn($stub);
+        $request->getParsedBody()->willReturn($this->person);
         $request->getAttribute('form-validation-errors')->willReturn($errors);
 
         $response = $this->prophesize(Response::class);
         $response->getStatusCode()->willReturn(406);
 
-        $this->params['currentData'] = $stub;
+        $this->params['currentData'] = $this->person;
         $this->params['validationErrors'] = $errors;
         $this->template->render('student::admission', $this->params)->willReturn('html page');
 
@@ -160,16 +140,9 @@ final class AdmissionTest extends TestCase
 
     public function testPostWithSuccessfullyCreatedRecord()
     {
-        $person = Factory::create();
-        $stub = [
-            'first_name'    => $person->firstName,
-            'middle_name'   => $person->lastName,
-            'last_name'     => $person->lastName
-        ];
-
         $request  = $this->prophesize(ServerRequest::class);
         $request->getMethod()->willReturn("POST");
-        $request->getParsedBody()->willReturn($stub);
+        $request->getParsedBody()->willReturn($this->person);
 
         $response = $this->prophesize(Response::class);
         $response->getStatusCode()->willReturn(201);
