@@ -45,7 +45,7 @@ final class Register implements MiddlewareInterface
 
     public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        if (('POST' !== strtoupper($request->getMethod())) xor (200 !== $response->getStatusCode())) {
+        if (('POST' !== strtoupper($request->getMethod())) or (200 !== $response->getStatusCode())) {
             return $out($request, $response);
         }
 
