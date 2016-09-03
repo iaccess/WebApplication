@@ -40,6 +40,11 @@ final class Admission implements MiddlewareInterface
      */
     private $template;
 
+    /**
+     * @var array
+     */
+    private $params = [];
+
     public function __construct(TemplateRendererInterface $template)
     {
         $this->template = $template;
@@ -47,36 +52,32 @@ final class Admission implements MiddlewareInterface
 
     public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        $data   = $request->getParsedBody();
-        $params = [];
-
         if ('POST' == $request->getMethod()) {
-            if (500 == $response->getStatusCode()) {
-                $params['error_message'] = "Name already existing";
-                $params['currentData'] = $data;
+            $this->params['currentData'] = $request->getParsedBody();
+
+            if ((500 == $response->getStatusCode()) or (409 == $response->getStatusCode())) {
+                $this->params['error_message'] = "Name already existing";
             }
 
             if (409 == $response->getStatusCode()) {
-                $params['error_message'] = "Name already existing";
-                $params['currentData'] = $data;
-                $params['validationErrors'] = [
-                    'first_name' => 'Name already existing',
-                    'middle_name' => 'Name already existing',
-                    'last_name' => 'Name already existing',
+                $this->params['validationErrors'] = [
+                    'first_name'    => 'Name already existing',
+                    'middle_name'   => 'Name already existing',
+                    'last_name'     => 'Name already existing',
                 ];
             }
 
             if (406 == $response->getStatusCode()) {
-                $params['currentData'] = $data;
-                $params['validationErrors'] = $request->getAttribute('form-validation-errors');
+                $this->params['validationErrors'] = $request->getAttribute('form-validation-errors');
             }
 
             if (201 == $response->getStatusCode()) {
-                $params['message'] = "Successfully added.";
+                unset($this->params['currentData']);
+                $this->params['message'] = "Successfully added.";
                 //return new RedirectResponse('/enrollment');
             }
         }
 
-        return new HtmlResponse($this->template->render('student::admission', $params));
+        return new HtmlResponse($this->template->render('student::admission', $this->params));
     }
 }

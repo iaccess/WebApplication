@@ -32,6 +32,7 @@ use Zend\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\Response;
 use Student\Page\Admission;
+use Faker\Factory;
 
 final class AdmissionTest extends TestCase
 {
@@ -43,6 +44,8 @@ final class AdmissionTest extends TestCase
      * @var string
      */
     private $page;
+
+    private $params = [];
 
     public function setUp()
     {
@@ -57,6 +60,125 @@ final class AdmissionTest extends TestCase
         $this->assertTrue($page instanceof Admission);
 
         $response = $page(new ServerRequest(['/']), new Response());
+
+        $this->assertTrue($response instanceof HtmlResponse);
+    }
+
+    public function testPostExistingRecordWith500Status()
+    {
+        $person = Factory::create();
+        $stub = [
+            'first_name'    => $person->firstName,
+            'middle_name'   => $person->lastName,
+            'last_name'     => $person->lastName
+        ];
+
+
+        $request  = $this->prophesize(ServerRequest::class);
+        $request->getMethod()->willReturn("POST");
+        $request->getParsedBody()->willReturn($stub);
+
+        $response = $this->prophesize(Response::class);
+        $response->getStatusCode()->willReturn(500);
+
+        $this->params['currentData'] = $stub;
+        $this->params['error_message'] = "Name already existing";
+
+        $this->template->render('student::admission', $this->params)->willReturn('html page');
+
+        $page = new Admission($this->template->reveal());
+        $response = $page($request->reveal(), $response->reveal());
+
+        $this->assertTrue($response instanceof HtmlResponse);
+    }
+
+    public function testPostExistingRecordWith409Status()
+    {
+        $person = Factory::create();
+        $stub = [
+            'first_name'    => $person->firstName,
+            'middle_name'   => $person->lastName,
+            'last_name'     => $person->lastName
+        ];
+
+
+        $request  = $this->prophesize(ServerRequest::class);
+        $request->getMethod()->willReturn("POST");
+        $request->getParsedBody()->willReturn($stub);
+
+        $response = $this->prophesize(Response::class);
+        $response->getStatusCode()->willReturn(409);
+
+        $this->params['currentData'] = $stub;
+        $this->params['error_message'] = "Name already existing";
+        $this->params['validationErrors'] = [
+           'first_name'    => 'Name already existing',
+           'middle_name'   => 'Name already existing',
+           'last_name'     => 'Name already existing',
+        ];
+
+        $this->template->render('student::admission', $this->params)->willReturn('html page');
+
+        $page = new Admission($this->template->reveal());
+        $response = $page($request->reveal(), $response->reveal());
+
+        $this->assertTrue($response instanceof HtmlResponse);
+    }
+
+    public function testPostWithValidationErrors()
+    {
+        $person = Factory::create();
+        $stub = [
+            'first_name'    => $person->firstName,
+            'middle_name'   => $person->lastName,
+            'last_name'     => $person->lastName
+        ];
+
+        $errors = [
+            'first_name'    => 'Name already existing',
+            'middle_name'   => 'Name already existing',
+            'last_name'     => 'Name already existing',
+        ];
+
+        $request  = $this->prophesize(ServerRequest::class);
+        $request->getMethod()->willReturn("POST");
+        $request->getParsedBody()->willReturn($stub);
+        $request->getAttribute('form-validation-errors')->willReturn($errors);
+
+        $response = $this->prophesize(Response::class);
+        $response->getStatusCode()->willReturn(406);
+
+        $this->params['currentData'] = $stub;
+        $this->params['validationErrors'] = $errors;
+        $this->template->render('student::admission', $this->params)->willReturn('html page');
+
+        $page = new Admission($this->template->reveal());
+        $response = $page($request->reveal(), $response->reveal());
+
+        $this->assertTrue($response instanceof HtmlResponse);
+    }
+
+    public function testPostWithSuccessfullyCreatedRecord()
+    {
+        $person = Factory::create();
+        $stub = [
+            'first_name'    => $person->firstName,
+            'middle_name'   => $person->lastName,
+            'last_name'     => $person->lastName
+        ];
+
+        $request  = $this->prophesize(ServerRequest::class);
+        $request->getMethod()->willReturn("POST");
+        $request->getParsedBody()->willReturn($stub);
+
+        $response = $this->prophesize(Response::class);
+        $response->getStatusCode()->willReturn(201);
+
+        $this->params['message'] = "Successfully added.";
+        $this->template->render('student::admission', $this->params)->willReturn('html page');
+
+        $page = new Admission($this->template->reveal());
+        $response = $page($request->reveal(), $response->reveal());
 
         $this->assertTrue($response instanceof HtmlResponse);
     }
