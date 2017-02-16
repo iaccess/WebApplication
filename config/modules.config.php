@@ -5,7 +5,6 @@ return [
     Zend\Component\ConfigProvider::class,
     Zend\Validator\ConfigProvider::class,
     Zend\Router\ConfigProvider::class,
-    Zend\I18n\ConfigProvider::class,
     Zend\InputFilter\ConfigProvider::class,
     Zend\Filter\ConfigProvider::class,
     Zend\Session\ConfigProvider::class,
